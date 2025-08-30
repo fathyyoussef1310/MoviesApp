@@ -1,0 +1,21 @@
+flutter_native_splash:
+  color: "#121312"
+  image: assets/Images/splashMovies.png
+  branding: assets/Images/brandingMoviesreal.png
+  branding_mode: bottom
+  branding_bottom_padding: 24
+  color_dark: "#121312"
+  image_dark: assets/Images/splashMovies.png
+  branding_dark: assets/Images/brandingMoviesreal.png
+  android_12:
+    color: "#121312"
+    image: assets/Images/splashMovies.png
+    color_dark: "#121312"
+    image_dark: assets/Images/splashMovies.png
+    branding: assets/Images/brandingMoviesreal.png
+    branding_dark: assets/Images/brandingMoviesreal.png
+    branding_mode: bottom
+    branding_bottom_padding: 24
+    android: true
+    ios: true
+    web: true
