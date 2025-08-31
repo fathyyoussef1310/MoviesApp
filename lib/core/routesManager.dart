@@ -1,21 +1,24 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 import '../AUTH/Login.dart';
 import '../AUTH/register.dart';
+import '../screens/onboarding/onboarding_screen.dart';
+
 class RoutesManager {
+  static const String onboardingScreen = 'onboarding';
   static const String loginScreen = 'login';
   static const String registerScreen = 'register';
-  static const String forgetPass = 'forgetPass';
-  static const String updateUi = 'updateUi';
+
   static Route? getRoute(RouteSettings settings) {
     switch (settings.name) {
+      case onboardingScreen:
+        return CupertinoPageRoute(builder: (_) => const OnBoardingScreen());
       case loginScreen:
-        return CupertinoPageRoute(builder: (_) => LoginScreen());
-    }
-    switch (settings.name)
-    {
+        return CupertinoPageRoute(builder: (_) => const LoginScreen());
       case registerScreen:
-        return CupertinoPageRoute(builder: (_) => RegisterScreen());
+        return CupertinoPageRoute(builder: (_) => const RegisterScreen());
+      default:
+        return null;
     }
   }
 }
