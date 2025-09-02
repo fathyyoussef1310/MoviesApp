@@ -13,6 +13,7 @@ class ForrgetPass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsManager.darkBlack,
       appBar: AppBar(
           title: Text("Forget Password",
             style: GoogleFonts.inter(
@@ -32,7 +33,8 @@ class ForrgetPass extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Center(child: Image.asset(ImagesManager.forrgetPassImage)),
+              Center(child: Image.asset(ImagesManager.forrgetPassImage)
+              ),
               SizedBox(height: 10.h),
               CustomTextFormField(hint: "Email", prefixIcon: Icons.email),
               SizedBox(height: 20.h),

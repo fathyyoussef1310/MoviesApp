@@ -24,7 +24,6 @@ class RoutesManager {
         return CupertinoPageRoute(builder: (_) => const UpdateProfile());
       case forgetPass:
         return CupertinoPageRoute(builder: (_) => const ForrgetPass());
-
       default:
         return null;
     }

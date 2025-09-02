@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:moviesapproute/features/Screens/onboarding/onboard_pg6.dart';
 
 import 'onboard_pg1.dart';
 import 'onboard_pg2.dart';
 import 'onboard_pg3.dart';
 import 'onboard_pg4.dart';
+import 'onboard_pg5.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -17,6 +19,8 @@ class OnBoardingScreen extends StatelessWidget {
           OnBoardPage2(),
           OnBoardPage3(),
           OnBoardPage4(),
+          OnBoardPage5(),
+          OnBoardPage6(),
         ],
       ),
     );

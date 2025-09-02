@@ -19,6 +19,7 @@ class UpdateProfile extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: ColorsManager.darkBlack,
       appBar: AppBar(
         title: Text(
           "Pick Avatar",
@@ -29,9 +30,9 @@ class UpdateProfile extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
         automaticallyImplyLeading: true,
         elevation: 0,
+        backgroundColor: ColorsManager.darkBlack,
       ),
       body: Padding(
         padding: REdgeInsets.symmetric(horizontal: 10.w),
@@ -46,7 +47,7 @@ class UpdateProfile extends StatelessWidget {
                 ),
               ),
               CustomTextFormField(
-                hint: "Shawky Albana",
+                hint: "USERNAME",
                 prefixIcon: Icons.person,
                 keyboardType: TextInputType.name,
               ),
@@ -60,6 +61,7 @@ class UpdateProfile extends StatelessWidget {
               CustomTextButton(
                 title: "Reset Password",
                 onPressed: _onResetPasswordPressed,
+                color: ColorsManager.yellow,
               ),
               SizedBox(height: 220.h),
               Column(
