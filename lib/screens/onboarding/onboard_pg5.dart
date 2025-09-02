@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:moviesapproute/core/colorsManager.dart';
 import 'package:moviesapproute/core/imagesManager.dart';
-import 'package:moviesapproute/screens/onboarding/onboard_pg4.dart';
+import 'package:moviesapproute/screens/onboarding/onboard_pg6.dart';
 
-class OnBoardPage3 extends StatelessWidget {
-  const OnBoardPage3({super.key});
+class OnBoardPage5 extends StatelessWidget {
+  const OnBoardPage5({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class OnBoardPage3 extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(ImagesManager.onboard3),
+                image: AssetImage(ImagesManager.onboard5),
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -26,7 +26,7 @@ class OnBoardPage3 extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(ImagesManager.onboard3trans),
+                image: AssetImage(ImagesManager.onboard5trans),
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -53,7 +53,7 @@ class OnBoardPage3 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        "Explore All Genres",
+                        "Rate, Review, and Learn",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -63,7 +63,7 @@ class OnBoardPage3 extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       const Text(
-                        "Discover movies from every genre, in all \navailable qualities. Find something new \nand exciting to watch every day.",
+                        "Share your thoughts on the movies\n you've watched. Dive deep into film\n details and help others discover great movies with your reviews.",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -87,7 +87,7 @@ class OnBoardPage3 extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const OnBoardPage4(),
+                                builder: (context) => const OnBoardPage6(),
                               ),
                             );
                           },

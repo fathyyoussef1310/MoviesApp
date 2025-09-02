@@ -4,6 +4,7 @@ import 'package:moviesapproute/screens/onboarding/onboarding_screen.dart';
 import 'MoviesApp_main.dart';
 import 'package:flutter/material.dart';
 void main() {
+  runApp(MoviesApp());
   runApp(const MyApp());
 }
 
@@ -18,4 +19,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

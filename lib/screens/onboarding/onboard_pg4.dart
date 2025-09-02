@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moviesapproute/core/colorsManager.dart';
 import 'package:moviesapproute/core/imagesManager.dart';
+import 'package:moviesapproute/screens/onboarding/onboard_pg5.dart';
 
 class OnBoardPage4 extends StatelessWidget {
   const OnBoardPage4({super.key});
@@ -83,7 +84,12 @@ class OnBoardPage4 extends StatelessWidget {
                           ),
                           onPressed: () {
 
-
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const OnBoardPage5(),
+                              ),
+                            );
                           },
                           child: const Text(
                             "Next",
