@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moviesapproute/core/colorsManager.dart';
-import 'package:moviesapproute/core/imagesManager.dart';
-import 'package:moviesapproute/screens/onboarding/onboard_pg4.dart';
 
-class OnBoardPage3 extends StatelessWidget {
-  const OnBoardPage3({super.key});
+import '../../../core/colors_manager/colorsManager.dart';
+import '../../../core/image_manager/imagesManager.dart';
+
+class OnBoardPage4 extends StatelessWidget {
+  const OnBoardPage4({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class OnBoardPage3 extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(ImagesManager.onboard3),
+                image: AssetImage(ImagesManager.onboard4),
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -26,7 +26,7 @@ class OnBoardPage3 extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(ImagesManager.onboard3trans),
+                image: AssetImage(ImagesManager.onboard4trans),
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -53,7 +53,7 @@ class OnBoardPage3 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        "Explore All Genres",
+                        "Create Watchlists",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -63,7 +63,7 @@ class OnBoardPage3 extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       const Text(
-                        "Discover movies from every genre, in all \navailable qualities. Find something new \nand exciting to watch every day.",
+                        "Save movies to your watchlist to keep\n track of what you want to watch next.\n Enjoy films in various qualities and \ngenres.",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -84,12 +84,7 @@ class OnBoardPage3 extends StatelessWidget {
                           ),
                           onPressed: () {
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const OnBoardPage4(),
-                              ),
-                            );
+
                           },
                           child: const Text(
                             "Next",
@@ -100,7 +95,7 @@ class OnBoardPage3 extends StatelessWidget {
 
                       const SizedBox(height: 16),
 
-                      // زرار Back
+
                       SizedBox(
                         width: double.infinity,
                         child: OutlinedButton(

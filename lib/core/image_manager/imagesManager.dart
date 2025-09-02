@@ -1,0 +1,32 @@
+class ImagesManager{
+  static const String base = "assets/Images";
+  static const String MovieIcon="$base/IconMoveApp.png";
+  static const String IconGoogle="$base/🦆 icon _google_.png";
+  static const String EG="$base/EG.png";
+  static const String AR="$base/LR.png";
+  static const String forrgetPassImage="$base/Forgot password image.png";
+  static const String User1="$base/gamer (1).png";
+  static const String User2="$base/gamer (2).png";
+  static const String User3="$base/gamer (3).png";
+
+
+
+  static const String profilebase="assets/Images/profile_image";
+  static const String profile1= "$profilebase/profile1.png";
+  static const String profile2= "$profilebase/profile2.png";
+  static const String profile3= "$profilebase/profile3.png";
+  static const String profile4= "$profilebase/profile4.png";
+  static const String profile5= "$profilebase/profile5.png";
+  static const String profile6= "$profilebase/profile6.png";
+  static const String profile7= "$profilebase/profile7.png";
+  static const String profile8= "$profilebase/profile8.png";
+  static const String profile9= "$profilebase/profile9.png";
+
+  static const String onboard1="assets/Images/onboard_pg1.png";
+  static const String onboard2="assets/Images/onboard_pg2.png";
+  static const String onboard3="assets/Images/onboard_pg3.png";
+  static const String onboard4="assets/Images/onboard_pg4.png";
+  static const String onboard2trans="assets/Images/onboard2trans.png";
+  static const String onboard3trans="assets/Images/onboard3trans.png";
+  static const String onboard4trans="assets/Images/onboard4trans.png";
+}

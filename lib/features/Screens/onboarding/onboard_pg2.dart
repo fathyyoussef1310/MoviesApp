@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moviesapproute/core/colorsManager.dart';
-import 'package:moviesapproute/core/imagesManager.dart';
-import 'package:moviesapproute/screens/onboarding/onboard_pg3.dart';
+import '../../../core/colors_manager/colorsManager.dart';
+import '../../../core/image_manager/imagesManager.dart';
+import 'onboard_pg3.dart';
 
 
 class OnBoardPage2 extends StatelessWidget {
