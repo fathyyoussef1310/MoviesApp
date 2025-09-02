@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moviesapproute/core/colorsManager.dart';
-import 'package:moviesapproute/core/imagesManager.dart';
-import 'package:moviesapproute/screens/onboarding/onboard_pg3.dart';
+import '../../../core/colors_manager/colorsManager.dart';
+import '../../../core/image_manager/imagesManager.dart';
+import 'onboard_pg4.dart';
 
-
-class OnBoardPage2 extends StatelessWidget {
-  const OnBoardPage2({super.key});
+class OnBoardPage3 extends StatelessWidget {
+  const OnBoardPage3({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +14,11 @@ class OnBoardPage2 extends StatelessWidget {
 
           Container(color: Colors.black),
 
-          // الصورة
+
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(ImagesManager.onboard2),
+                image: AssetImage(ImagesManager.onboard3),
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -27,7 +26,7 @@ class OnBoardPage2 extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(ImagesManager.onboard2trans),
+                image: AssetImage(ImagesManager.onboard3trans),
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -38,7 +37,6 @@ class OnBoardPage2 extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               width: double.infinity,
-
               child: Card(
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
@@ -49,14 +47,13 @@ class OnBoardPage2 extends StatelessWidget {
                 color: Colors.black,
                 margin: EdgeInsets.zero,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 70),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-
                       const Text(
-                        "Discover movies ",
+                        "Explore All Genres",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -66,7 +63,7 @@ class OnBoardPage2 extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       const Text(
-                        "Explore a vast collection of movies in all\nqualities and genres. Find your next\nfavorite film with ease. ",
+                        "Discover movies from every genre, in all \navailable qualities. Find something new \nand exciting to watch every day.",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -86,10 +83,11 @@ class OnBoardPage2 extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 16),
                           ),
                           onPressed: () {
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const OnBoardPage3(),
+                                builder: (context) => const OnBoardPage4(),
                               ),
                             );
                           },
@@ -99,13 +97,33 @@ class OnBoardPage2 extends StatelessWidget {
                           ),
                         ),
                       ),
+
+                      const SizedBox(height: 16),
+
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: ColorsManager.yellow, width: 2),
+                            foregroundColor: Colors.black,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            "Back",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: ColorsManager.yellow),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
           )
-
         ],
       ),
     );

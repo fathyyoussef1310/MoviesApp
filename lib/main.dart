@@ -1,21 +1,32 @@
+
 import 'package:flutter/material.dart';
-import 'package:moviesapproute/screens/onboarding/onboard_pg1.dart';
-import 'package:moviesapproute/screens/onboarding/onboarding_screen.dart';
-import 'MoviesApp_main.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'core/routes_manager/routesManager.dart';
+
 void main() {
+<<<<<<< HEAD
   runApp(MoviesApp());
   runApp(const MyApp());
+=======
+  runApp(const MoviesApp());
+>>>>>>> aa138d70c475895db1122653cc9d8402b9ab08dd
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MoviesApp extends StatelessWidget {
+  const MoviesApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const OnBoardingScreen(),
+    return ScreenUtilInit(
+      designSize: Size(430,932),
+      minTextAdapt: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: RoutesManager.getRoute,
+          initialRoute: RoutesManager.onboardingScreen,
+        );
+      },
     );
   }
 }

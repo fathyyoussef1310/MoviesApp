@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD:lib/screens/onboarding/onboard_pg4.dart
 import 'package:moviesapproute/core/colorsManager.dart';
 import 'package:moviesapproute/core/imagesManager.dart';
 import 'package:moviesapproute/screens/onboarding/onboard_pg5.dart';
+=======
+
+import '../../../core/colors_manager/colorsManager.dart';
+import '../../../core/image_manager/imagesManager.dart';
+>>>>>>> aa138d70c475895db1122653cc9d8402b9ab08dd:lib/features/Screens/onboarding/onboard_pg4.dart
 
 class OnBoardPage4 extends StatelessWidget {
   const OnBoardPage4({super.key});
