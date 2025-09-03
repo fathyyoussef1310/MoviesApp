@@ -24,8 +24,6 @@ class OnBoardPage1 extends StatelessWidget {
                 ),
               ),
             ),
-        
-        
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
@@ -61,11 +59,8 @@ class OnBoardPage1 extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const OnBoardPage2()),
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const OnBoardPage2()),
                           );
-        
                         },
                         child: const Text(
                           "Explore Now",
