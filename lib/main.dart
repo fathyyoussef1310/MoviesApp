@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'core/routes_manager/routesManager.dart';
+
 void main() {
   runApp(const MoviesApp());
 }
+
 class MoviesApp extends StatelessWidget {
   const MoviesApp({super.key});
 
@@ -17,7 +18,7 @@ class MoviesApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RoutesManager.getRoute,
-          initialRoute: RoutesManager.updateProfileUi,
+          initialRoute: RoutesManager.onboardingScreen,
         );
       },
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moviesapproute/core/imagesManager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/colors_manager/colorsManager.dart';
 import '../../authentication/Login.dart';
@@ -76,18 +77,23 @@ class OnBoardPage6 extends StatelessWidget {
                             foregroundColor: Colors.black,
                             padding: const EdgeInsets.symmetric(vertical: 16),
                           ),
-                          onPressed: () {
-                            Navigator.push(
+                          onPressed: () async {
+
+                            final prefs = await SharedPreferences.getInstance();
+
+                            await prefs.setBool('onboarding_seen', true);
+
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(builder: (context) => const LoginScreen()),
                             );
-
                           },
                           child: const Text(
-                            "Finish",
+                            "Next",
                             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
+
                       ),
 
                       const SizedBox(height: 16),
