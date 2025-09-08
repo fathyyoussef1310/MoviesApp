@@ -26,13 +26,7 @@ class MyApp extends StatelessWidget {
         return  GetMaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RoutesManager.getRoute,
-<<<<<<< HEAD
-          home: onboardingSeen
-              ? const LoginScreen()
-              : const OnBoardingScreen(),
-=======
           home: onboardingSeen ? LoginScreen() : OnBoardingScreen(),
->>>>>>> Register-login-Logic-and-UI
         );
       },
     );
