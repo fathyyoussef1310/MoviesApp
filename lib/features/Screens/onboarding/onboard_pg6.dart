@@ -85,7 +85,7 @@ class OnBoardPage6 extends StatelessWidget {
 
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => const LoginScreen()),
+                              MaterialPageRoute(builder: (context) =>  LoginScreen()),
                             );
                           },
                           child: const Text(

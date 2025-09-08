@@ -17,9 +17,9 @@ class RoutesManager {
       case onboardingScreen:
         return CupertinoPageRoute(builder: (_) => const OnBoardingScreen());
       case loginScreen:
-        return CupertinoPageRoute(builder: (_) => const LoginScreen());
+        return CupertinoPageRoute(builder: (_) =>  LoginScreen());
       case registerScreen:
-        return CupertinoPageRoute(builder: (_) => const RegisterScreen());
+        return CupertinoPageRoute(builder: (_) =>  RegisterScreen());
       case updateProfileUi:
         return CupertinoPageRoute(builder: (_) => const UpdateProfile());
       case forgetPass:

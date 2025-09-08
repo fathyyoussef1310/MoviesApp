@@ -11,6 +11,8 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
+    this.controller,
+    this.validator,
   });
 
   final String? label;
@@ -19,10 +21,12 @@ class CustomTextFormField extends StatelessWidget {
   final IconData? suffixIcon;
   final TextInputType keyboardType;
   final int maxLines;
-
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       maxLines: maxLines,
       keyboardType: keyboardType,
       style: Theme.of(context).textTheme.bodySmall?.copyWith(
