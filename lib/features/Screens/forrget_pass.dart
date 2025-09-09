@@ -36,7 +36,7 @@ class ForrgetPass extends StatelessWidget {
               Center(child: Image.asset(ImagesManager.forrgetPassImage)
               ),
               SizedBox(height: 10.h),
-              CustomTextFormField(hint: "Email", prefixIcon: Icons.email),
+              CustomTextFormField(hint: "Email", prefixIcon: Icons.email, onChanged: (value) {  },),
               SizedBox(height: 20.h),
               CustomElevatedButton(
                 onPressed: () {},

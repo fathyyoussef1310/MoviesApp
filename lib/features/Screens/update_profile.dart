@@ -49,13 +49,13 @@ class UpdateProfile extends StatelessWidget {
               CustomTextFormField(
                 hint: "USERNAME",
                 prefixIcon: Icons.person,
-                keyboardType: TextInputType.name,
+                keyboardType: TextInputType.name, onChanged: (value) {  },
               ),
               SizedBox(height: 20.h),
               CustomTextFormField(
                 hint: "0120000000",
                 prefixIcon: Icons.call,
-                keyboardType: TextInputType.name,
+                keyboardType: TextInputType.name, onChanged: (value) {  },
               ),
               SizedBox(height: 12.h),
               CustomTextButton(

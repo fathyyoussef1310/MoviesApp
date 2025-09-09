@@ -13,6 +13,7 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines = 1,
     this.controller,
     this.validator,
+    this.onChanged,
   });
 
   final String? label;
@@ -23,6 +24,8 @@ class CustomTextFormField extends StatelessWidget {
   final int maxLines;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+
+  final dynamic onChanged;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -34,6 +37,7 @@ class CustomTextFormField extends StatelessWidget {
         fontWeight: FontWeight.w500,
         color: ColorsManager.ofwhite,
       ),
+      onChanged: onChanged,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: label != null

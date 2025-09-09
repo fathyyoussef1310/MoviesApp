@@ -25,4 +25,9 @@ class ImagesManager{
   static const String onboard2trans="assets/Images/onboard2trans.png";
   static const String onboard3trans="assets/Images/onboard3trans.png";
   static const String onboard4trans="assets/Images/onboard4trans.png";
+  static const String popcorn="assets/Images/popcorn.png";
+  static const String movie1="assets/Images/movie1.png";
+  static const String movie2="assets/Images/movie2.png";
+  static const String movie3="assets/Images/movie3.png";
+  static const String movie4="assets/Images/movie4.png";
 }
