@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moviesapproute/core/imagesManager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../core/colors_manager/colorsManager.dart';
 import '../../authentication/Login.dart';
 
@@ -13,10 +12,7 @@ class OnBoardPage6 extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-
           Container(color: Colors.black),
-
-
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(

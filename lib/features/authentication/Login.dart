@@ -53,8 +53,6 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.h),
-
-              // Login button with loading indicator
               Obx(() => ElevatedButton(
                 onPressed: loginController.isLoading.value ? null : () {
                   loginController.loginWithEmail();
@@ -80,8 +78,6 @@ class LoginScreen extends StatelessWidget {
                 ),
               )),
               SizedBox(height: 20.h),
-
-              // Register link
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -164,8 +160,6 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.h),
-
-              // Language Switch
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

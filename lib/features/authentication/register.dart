@@ -81,8 +81,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     SizedBox(height: 12.h),
-
-                    /// Inputs
                     CustomTextFormField(
                       hint: 'Name',
                       controller: controller.nameController,
@@ -113,8 +111,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       prefixIcon: Icons.phone,
                     ),
                     SizedBox(height: 20.h),
-
-                    /// Create account button
                     ElevatedButton(
                       onPressed: () {
                         controller.register(selectedIndex + 1);
@@ -138,8 +134,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                     ),
-
-                    /// Login link
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -169,8 +163,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
-
-            /// loading overlay
             if (controller.isLoading.value)
               const Center(child: CircularProgressIndicator()),
           ],

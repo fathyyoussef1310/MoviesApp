@@ -11,11 +11,7 @@ class LoginController extends GetxController {
   TextEditingController passwordController = TextEditingController();
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-  // Loading state
   var isLoading = false.obs;
-
-  // Login function
   Future<void> loginWithEmail() async {
     var headers = {'Content-Type': 'application/json'};
 
@@ -29,8 +25,7 @@ class LoginController extends GetxController {
         'password': passwordController.text
       };
 
-      http.Response response =
-      await http.post(url, body: jsonEncode(body), headers: headers);
+      http.Response response = await http.post(url, body: jsonEncode(body), headers: headers);
 
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);

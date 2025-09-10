@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:moviesapproute/main_layout/explore/explore_screen.dart';
 import 'package:moviesapproute/main_layout/search/search_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,18 +20,17 @@ void main() async {
 class MyApp extends StatelessWidget {
   final bool onboardingSeen;
   const MyApp({required this.onboardingSeen, super.key});
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(430, 932),
       minTextAdapt: true,
       builder: (context, child) {
-        return MaterialApp(
+        return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RoutesManager.getRoute,
           home: onboardingSeen
-              ? ExploreScreen()
+              ? LoginScreen()
               : const OnBoardingScreen(),
         );
       },
