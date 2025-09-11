@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:moviesapproute/movies_screen/moviehomepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../home.dart';
+
 import '../../utils/api_endpoint.dart';
 
 class LoginController extends GetxController {
@@ -43,7 +44,7 @@ class LoginController extends GetxController {
               backgroundColor: Colors.green, colorText: Colors.white,
               snackPosition: SnackPosition.BOTTOM);
 
-          Get.offAll(() => HomeScreen());
+          Get.offAll(() => MovieHomePage());
         } else {
           Get.snackbar(
             "Login Failed",
