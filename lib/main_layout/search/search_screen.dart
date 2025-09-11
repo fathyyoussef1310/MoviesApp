@@ -29,10 +29,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: ColorsManager.darkBlack,
-        body: Padding(
+    return Scaffold(
+      backgroundColor: ColorsManager.darkBlack,
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
@@ -61,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       : Text(
                     "Not Found",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: ColorsManager.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -87,7 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                 ),
               )
-
+            
             ],
           ),
         ),

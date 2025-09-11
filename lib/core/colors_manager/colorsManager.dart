@@ -8,4 +8,5 @@ class ColorsManager {
   static const Color ofwhite=Color(0xffFFFFFF);
   static const Color green=Color(0xff57AA53);
   static const Color red=Color(0xffE82626);
+
 }

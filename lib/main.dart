@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moviesapproute/main_layout/explore/explore_screen.dart';
 import 'package:moviesapproute/main_layout/search/search_screen.dart';
+import 'package:moviesapproute/main_layout/layout_screen.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/routes_manager/routesManager.dart';
 import 'features/Screens/onboarding/onboarding_screen.dart';
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RoutesManager.getRoute,
           home: onboardingSeen
-              ? ExploreScreen()
+              ? LayoutScreen()
               : const OnBoardingScreen(),
         );
       },

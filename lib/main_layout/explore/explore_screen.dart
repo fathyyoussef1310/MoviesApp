@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moviesapproute/core/colors_manager/colorsManager.dart';
 
 class Movie {
   final String title;
@@ -42,10 +43,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
         ? allMovies
         : allMovies.where((m) => m.category == selectedCategory).toList();
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        body: Padding(
+    return Scaffold(
+      backgroundColor: ColorsManager.darkBlack,
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,17 +70,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: isSelected ? Colors.yellow : Colors.black,
+                          color: isSelected ? Colors.yellow : ColorsManager.darkBlack,
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: Colors.yellow,
+                            color: ColorsManager.yellow,
                             width: 2,
                           ),
                         ),
                         child: Text(
                           category,
                           style: TextStyle(
-                            color: isSelected ? Colors.black : Colors.yellow,
+                            color: isSelected ? ColorsManager.darkBlack: ColorsManager.yellow,
                             fontWeight: FontWeight.bold,fontSize: 20
                           ),
                         ),
@@ -88,10 +89,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   },
                 ),
               ),
-
-
+            
+            
               const SizedBox(height: 20),
-
+            
               // Movies Grid
               Expanded(
                 child: GridView.builder(

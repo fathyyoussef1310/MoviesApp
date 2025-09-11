@@ -79,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen>
             const SizedBox(height: 5),
             Text(
               movie.title,
-              style: const TextStyle(color: Colors.white, fontSize: 12),
+              style: const TextStyle(color: ColorsManager.white, fontSize: 12),
               overflow: TextOverflow.ellipsis,
             ),
           ],
@@ -113,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white)),
+                                color: ColorsManager.white)),
                       ],
                     ),
                   ],
@@ -125,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white)),
+                            color: ColorsManager.white)),
                     Text("Wish List",
                         style: TextStyle(
                             color: ColorsManager.white,
@@ -140,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white)),
+                            color: ColorsManager.white)),
                     Text("History",
                         style: TextStyle(
                             color: ColorsManager.white,
@@ -200,9 +200,9 @@ class _ProfileScreenState extends State<ProfileScreen>
             // Tabs
             TabBar(
               controller: _tabController,
-              indicatorColor: Colors.yellow,
-              labelColor: Colors.yellow,
-              unselectedLabelColor: Colors.white,
+              indicatorColor: ColorsManager.yellow,
+              labelColor: ColorsManager.yellow,
+              unselectedLabelColor: ColorsManager.white,
               tabs: const [
                 Tab(icon: Icon(Icons.list), text: "Watch List"),
                 Tab(icon: Icon(Icons.folder), text: "History"),
@@ -221,7 +221,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         Image(image: AssetImage(ImagesManager.popcorn)),
                         SizedBox(height: 10),
                         Text("No movies yet",
-                            style: TextStyle(color: Colors.white70)),
+                            style: TextStyle(color: ColorsManager.ofwhite)),
                       ],
                     ),
                   )
@@ -237,10 +237,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Icon(Icons.history,
-                            size: 80, color: Colors.yellow),
+                            size: 80, color: ColorsManager.yellow),
                         SizedBox(height: 10),
                         Text("No history yet",
-                            style: TextStyle(color: Colors.white70)),
+                            style: TextStyle(color:  ColorsManager.ofwhite)),
                       ],
                     ),
                   )
