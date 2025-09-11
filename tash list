@@ -1,0 +1,37 @@
+[33m5ccd955[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/development[m[33m)[m HEAD@{0}: checkout: moving from development to development
+[33m5ccd955[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/development[m[33m)[m HEAD@{1}: checkout: moving from develop to development
+[33m28e272d[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mlayout_screen_navigation[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{2}: checkout: moving from layout_screen_navigation to develop
+[33m28e272d[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mlayout_screen_navigation[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{3}: commit: layout and navigation edited
+[33m5ccd955[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/development[m[33m)[m HEAD@{4}: checkout: moving from development to layout_screen_navigation
+[33m5ccd955[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/development[m[33m)[m HEAD@{5}: pull origin development --rebase: Fast-forward
+[33m74a4bf6[m HEAD@{6}: checkout: moving from development to development
+[33m74a4bf6[m HEAD@{7}: rebase (finish): returning to refs/heads/development
+[33m74a4bf6[m HEAD@{8}: rebase (continue): Profile Tab UI
+[33mb08394f[m HEAD@{9}: pull origin development --rebase (start): checkout b08394fa9e015f2f91385deaa596cb82e79ddba7
+[33m3d8c52a[m HEAD@{10}: commit: Profile Tab UI
+[33me742f19[m[33m ([m[1;31morigin/search-and-explore-UI[m[33m, [m[1;31morigin/profile-page[m[33m, [m[1;32msearch-and-explore-UI[m[33m, [m[1;32mprofile-page[m[33m)[m HEAD@{11}: checkout: moving from profile-page to development
+[33me742f19[m[33m ([m[1;31morigin/search-and-explore-UI[m[33m, [m[1;31morigin/profile-page[m[33m, [m[1;32msearch-and-explore-UI[m[33m, [m[1;32mprofile-page[m[33m)[m HEAD@{12}: checkout: moving from development to profile-page
+[33me742f19[m[33m ([m[1;31morigin/search-and-explore-UI[m[33m, [m[1;31morigin/profile-page[m[33m, [m[1;32msearch-and-explore-UI[m[33m, [m[1;32mprofile-page[m[33m)[m HEAD@{13}: checkout: moving from search-and-explore-UI to development
+[33me742f19[m[33m ([m[1;31morigin/search-and-explore-UI[m[33m, [m[1;31morigin/profile-page[m[33m, [m[1;32msearch-and-explore-UI[m[33m, [m[1;32mprofile-page[m[33m)[m HEAD@{14}: checkout: moving from development to search-and-explore-UI
+[33me742f19[m[33m ([m[1;31morigin/search-and-explore-UI[m[33m, [m[1;31morigin/profile-page[m[33m, [m[1;32msearch-and-explore-UI[m[33m, [m[1;32mprofile-page[m[33m)[m HEAD@{15}: commit: Finished Search screen and Explore UI
+[33m9886f32[m HEAD@{16}: pull origin development: Fast-forward
+[33m1b75e4d[m[33m ([m[1;31morigin/onboarding[m[33m, [m[1;32monboarding[m[33m)[m HEAD@{17}: reset: moving to HEAD
+[33m1b75e4d[m[33m ([m[1;31morigin/onboarding[m[33m, [m[1;32monboarding[m[33m)[m HEAD@{18}: checkout: moving from onboarding to development
+[33m1b75e4d[m[33m ([m[1;31morigin/onboarding[m[33m, [m[1;32monboarding[m[33m)[m HEAD@{19}: checkout: moving from development to onboarding
+[33m1b75e4d[m[33m ([m[1;31morigin/onboarding[m[33m, [m[1;32monboarding[m[33m)[m HEAD@{20}: checkout: moving from development to development
+[33m1b75e4d[m[33m ([m[1;31morigin/onboarding[m[33m, [m[1;32monboarding[m[33m)[m HEAD@{21}: pull origin development: Fast-forward
+[33m5ba6a95[m HEAD@{22}: checkout: moving from development to development
+[33m5ba6a95[m HEAD@{23}: commit: Add onboarding and splash screen changes
+[33m648b448[m HEAD@{24}: rebase (finish): returning to refs/heads/development
+[33m648b448[m HEAD@{25}: rebase (continue): Add splash screen with shared preferences and fix onboarding navigation
+[33mdef8c6f[m HEAD@{26}: pull origin development --rebase (start): checkout def8c6ff6c18fd20b46fccb60c791c6bc084fb77
+[33mdc8c641[m HEAD@{27}: commit: Add splash screen with shared preferences and fix onboarding navigation
+[33mf29ceeb[m HEAD@{28}: checkout: moving from development to development
+[33mf29ceeb[m HEAD@{29}: commit: Resolve merge conflicts and add onboarding pages 5 & 6
+[33m9810523[m HEAD@{30}: commit (merge): Resolved conflicts
+[33mad2357e[m HEAD@{31}: commit: Added two extra onboarding screens and navigation to Login
+[33m789b49e[m HEAD@{32}: checkout: moving from development to development
+[33m789b49e[m HEAD@{33}: commit: Add Onboarding screens and routes
+[33md3a6a51[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/forget-password-update-profile[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Auth[m[33m, [m[1;32monboarding-screen[m[33m, [m[1;32mAuth[m[33m)[m HEAD@{34}: checkout: moving from onboarding-screen to development
+[33md3a6a51[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/forget-password-update-profile[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Auth[m[33m, [m[1;32monboarding-screen[m[33m, [m[1;32mAuth[m[33m)[m HEAD@{35}: checkout: moving from Auth to onboarding-screen
+[33md3a6a51[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/forget-password-update-profile[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Auth[m[33m, [m[1;32monboarding-screen[m[33m, [m[1;32mAuth[m[33m)[m HEAD@{36}: clone: from https://github.com/fathyyoussef1310/MoviesApp.git

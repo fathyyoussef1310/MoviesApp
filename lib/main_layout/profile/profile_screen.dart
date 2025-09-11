@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:moviesapproute/controllers/UpdateProfileController.dart';
 import 'package:moviesapproute/core/colors_manager/colorsManager.dart';
 import 'package:moviesapproute/core/image_manager/imagesManager.dart';
+import 'package:moviesapproute/core/routes_manager/routesManager.dart';
 import 'package:moviesapproute/features/Screens/update_profile.dart';
 
 class Movie {
@@ -38,25 +42,23 @@ List<Movie> historyMovies = [
 ];
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+   ProfileScreen({super.key});
+  final UpdateProfileController updateProfileController= Get.put(UpdateProfileController());
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
-
 class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
-
   Widget buildMovieGrid(List<Movie> movies) {
     return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         mainAxisSpacing: 12,
         crossAxisSpacing: 12,
@@ -87,7 +89,6 @@ class _ProfileScreenState extends State<ProfileScreen>
       },
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,63 +97,58 @@ class _ProfileScreenState extends State<ProfileScreen>
         child: Column(
           children: [
             const SizedBox(height: 16),
-            // Profile Section
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    const CircleAvatar(
-                      radius: 55,
-                      backgroundImage: AssetImage(ImagesManager.User3),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text("John Safwat",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: ColorsManager.white)),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 80),
-                Column(
-                  children: const [
-                    Text("12",
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: ColorsManager.white)),
-                    Text("Wish List",
-                        style: TextStyle(
-                            color: ColorsManager.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                const SizedBox(width: 20),
-                Column(
-                  children: const [
-                    Text("10",
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: ColorsManager.white)),
-                    Text("History",
-                        style: TextStyle(
-                            color: ColorsManager.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                const SizedBox(width: 16),
-              ],
+            Obx(()=>Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 55,
+                        backgroundImage: AssetImage( widget.updateProfileController.selectedAvatarId.value == 1 ? ImagesManager.User1 : widget.updateProfileController.selectedAvatarId.value == 2 ? ImagesManager.User2 : ImagesManager.User3,),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.updateProfileController.nameController.text, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: ColorsManager.white)),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 80),
+                  Column(
+                    children: const [
+                      Text("12",
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: ColorsManager.white)),
+                      Text("Wish List",
+                          style: TextStyle(
+                              color: ColorsManager.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(width: 20),
+                  Column(
+                    children: const [
+                      Text("10",
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: ColorsManager.white)),
+                      Text("History",
+                          style: TextStyle(
+                              color: ColorsManager.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(width: 16),
+                ],
+              ),
             ),
             const SizedBox(height: 20),
-            // Buttons
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -160,12 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const UpdateProfile(),
-                          ),
-                        );
+                      Get.offAllNamed(RoutesManager.updateProfileUi);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorsManager.yellow,
@@ -197,7 +188,6 @@ class _ProfileScreenState extends State<ProfileScreen>
               ),
             ),
             const SizedBox(height: 20),
-            // Tabs
             TabBar(
               controller: _tabController,
               indicatorColor: ColorsManager.yellow,
@@ -212,7 +202,6 @@ class _ProfileScreenState extends State<ProfileScreen>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  // Watch List
                   watchListMovies.isEmpty
                       ? Center(
                     child: Column(
@@ -229,8 +218,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                     padding: const EdgeInsets.all(12.0),
                     child: buildMovieGrid(watchListMovies),
                   ),
-
-                  // History
                   historyMovies.isEmpty
                       ? Center(
                     child: Column(

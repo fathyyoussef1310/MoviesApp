@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:moviesapproute/main_layout/layout_screen.dart';
 import 'package:moviesapproute/movies_screen/moviehomepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,38 +14,32 @@ class LoginController extends GetxController {
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var isLoading = false.obs;
-  Future<void> loginWithEmail() async {
-    var headers = {'Content-Type': 'application/json'};
 
+  Future<void> loginWithEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    var headers = {'Content-Type': 'application/json'};
     try {
       isLoading.value = true;
-
       var url = Uri.parse(ApiEndpoints.baseUrl + ApiEndpoints.auth.login);
-
       Map<String, dynamic> body = {
         'email': emailController.text.trim(),
         'password': passwordController.text
       };
-
       http.Response response = await http.post(url, body: jsonEncode(body), headers: headers);
-
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-
         if (json['data'] != null) {
           var token = json['data'];
-
           final SharedPreferences prefs = await _prefs;
           await prefs.setString('token', token);
-
           emailController.clear();
           passwordController.clear();
-
           Get.snackbar("Success", "Login successful",
               backgroundColor: Colors.green, colorText: Colors.white,
               snackPosition: SnackPosition.BOTTOM);
 
-          Get.offAll(() => MovieHomePage());
+          Get.offAll(() => LayoutScreen());
         } else {
           Get.snackbar(
             "Login Failed",

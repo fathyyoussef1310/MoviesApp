@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:moviesapproute/main_layout/explore/explore_screen.dart';
 import 'package:moviesapproute/main_layout/search/search_screen.dart';
 import 'package:moviesapproute/main_layout/layout_screen.dart';
@@ -11,16 +12,17 @@ import 'features/authentication/Login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   final prefs = await SharedPreferences.getInstance();
+  final bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
   final bool? onboardingSeen = prefs.getBool('onboarding_seen');
 
-  runApp(MyApp(onboardingSeen: onboardingSeen ?? false));
+  runApp(MyApp(onboardingSeen: onboardingSeen ?? false, isLoggedIn: isLoggedIn,));
 }
 
 class MyApp extends StatelessWidget {
   final bool onboardingSeen;
-  const MyApp({required this.onboardingSeen, super.key});
+  final bool isLoggedIn;
+  const MyApp({required this.onboardingSeen, required this.isLoggedIn,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +30,10 @@ class MyApp extends StatelessWidget {
       designSize: const Size(430, 932),
       minTextAdapt: true,
       builder: (context, child) {
-        return MaterialApp(
+        return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RoutesManager.getRoute,
-          home: onboardingSeen
-              ? LayoutScreen()
-              : const OnBoardingScreen(),
+          home: onboardingSeen ?(isLoggedIn? LayoutScreen() :LoginScreen() ): OnBoardingScreen(),
         );
       },
     );

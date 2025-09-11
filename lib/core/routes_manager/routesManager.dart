@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:moviesapproute/main_layout/layout_screen.dart';
+import 'package:moviesapproute/main_layout/profile/profile_screen.dart';
 import '../../features/Screens/forrget_pass.dart';
 import '../../features/Screens/onboarding/onboarding_screen.dart';
 import '../../features/Screens/update_profile.dart';
@@ -11,6 +13,8 @@ class RoutesManager {
   static const String registerScreen = 'register';
   static const String updateProfileUi = 'updateProfile';
   static const String forgetPass = 'forgetPass';
+  static const String Profile = 'profile';
+  static const String Layout = 'layout';
 
   static Route? getRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -24,6 +28,10 @@ class RoutesManager {
         return CupertinoPageRoute(builder: (_) => const UpdateProfile());
       case forgetPass:
         return CupertinoPageRoute(builder: (_) => const ForrgetPass());
+      case Profile:
+        return CupertinoPageRoute(builder: (_) => ProfileScreen());
+      case Layout:
+        return CupertinoPageRoute(builder: (_) => const LayoutScreen());
       default:
         return null;
     }

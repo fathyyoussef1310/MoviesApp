@@ -5,4 +5,5 @@ class ApiEndpoints {
 class _Auth {
   final String login = "auth/login";
   final String register = "auth/register";
+  final String UpdateProfile = "profile";
 }
