@@ -162,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             if (controller.isLoading.value)
-              const Center(child: CircularProgressIndicator()),
+              Center(child: CircularProgressIndicator()),
           ],
         );
       }),
