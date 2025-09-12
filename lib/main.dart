@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RoutesManager.getRoute,
-          home: onboardingSeen ?(isLoggedIn? LayoutScreen() :LoginScreen() ): OnBoardingScreen(),
+          home: onboardingSeen ?( isLoggedIn ? LayoutScreen() : LoginScreen() ): OnBoardingScreen(),
         );
       },
     );

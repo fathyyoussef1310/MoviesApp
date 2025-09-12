@@ -49,7 +49,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 padding: REdgeInsets.symmetric(horizontal: 10.h),
                 child: Column(
                   children: [
-                    /// Avatar picker
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -65,8 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               padding: REdgeInsets.all(4.sp),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: selectedIndex == index
-                                      ? ColorsManager.yellow
+                                  color: selectedIndex == index ? ColorsManager.yellow
                                       : Colors.transparent,
                                   width: 3,
                                 ),
@@ -94,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(height: 12.h),
                     CustomTextFormField(
-                      hint: 'Password',
+                      hint: 'Password//Must Be Looks like(TestNum@)',
                       controller: controller.passwordController,
                       prefixIcon: Icons.lock,
                     ),
