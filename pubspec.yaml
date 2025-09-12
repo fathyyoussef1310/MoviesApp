@@ -24,6 +24,7 @@ dependencies:
   dart_either: ^2.0.0
   api_exception: ^0.0.3
   flutter_bloc: ^9.1.1
+  carousel_slider: ^5.1.1
 
 dependency_overrides:
   http: ^1.5.0

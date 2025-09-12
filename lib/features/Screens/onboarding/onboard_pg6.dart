@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moviesapproute/core/imagesManager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/colors_manager/colorsManager.dart';
+import '../../../core/image_manager/imagesManager.dart';
 import '../../authentication/Login.dart';
 
 class OnBoardPage6 extends StatelessWidget {

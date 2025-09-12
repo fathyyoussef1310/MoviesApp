@@ -1,5 +1,8 @@
 class ImagesManager{
   static const String base = "assets/Images";
+  static const String cover="$base/cover.png";
+  static const String avilableNow="$base/Available Now.png";
+  static const String watchNow="$base/Watch Now.png";
   static const String MovieIcon="$base/IconMoveApp.png";
   static const String IconGoogle="$base/🦆 icon _google_.png";
   static const String EG="$base/EG.png";
@@ -22,7 +25,11 @@ class ImagesManager{
   static const String onboard2="assets/Images/onboard_pg2.png";
   static const String onboard3="assets/Images/onboard_pg3.png";
   static const String onboard4="assets/Images/onboard_pg4.png";
+  static const String onboard5="assets/Images/onboard_pg5.png";
+  static const String onboard6="assets/Images/onboard_pg6.png";
   static const String onboard2trans="assets/Images/onboard2trans.png";
   static const String onboard3trans="assets/Images/onboard3trans.png";
   static const String onboard4trans="assets/Images/onboard4trans.png";
+  static const String onboard5trans="assets/Images/onboard5trans.png";
+  static const String onboard6trans="assets/Images/onboard6trans.png";
 }
