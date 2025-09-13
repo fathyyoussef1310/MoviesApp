@@ -1,5 +1,7 @@
 class ImagesManager{
   static const String base = "assets/Images";
+  static const String avilableNow="$base/Available Now.png";
+  static const String watchNow="$base/Watch Now.png";
   static const String MovieIcon="$base/IconMoveApp.png";
   static const String IconGoogle="$base/🦆 icon _google_.png";
   static const String EG="$base/EG.png";

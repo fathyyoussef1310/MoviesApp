@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:moviesapproute/core/colors_manager/colorsManager.dart';
 import 'package:moviesapproute/main_layout/explore/explore_screen.dart';
-import 'package:moviesapproute/main_layout/home/home_screen.dart';
 import 'package:moviesapproute/main_layout/profile/profile_screen.dart';
 import 'package:moviesapproute/main_layout/search/search_screen.dart';
-import 'package:moviesapproute/movies_screen/moviehomepage.dart';
+
+import '../features/home/home_screen.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
