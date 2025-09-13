@@ -27,14 +27,19 @@ dependencies:
   lucide_icons: ^0.257.0
   carousel_slider: ^5.1.1
 
-
-dependency_overrides:
-  http: ^1.5.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
+
+dependency_overrides:
+  http: ^1.5.0
 
 flutter:
   uses-material-design: true
