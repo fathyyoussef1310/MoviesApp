@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String title;
-  final VoidCallback onPressed;
-  final Color backgroundColor; // 👈 لون الخلفية كـ parameter
-  final Color foregroundColor; // 👈 لون النص كـ parameter
+  final VoidCallback? onPressed;
+  final Color backgroundColor;
+  final Color foregroundColor;
 
   const CustomElevatedButton({
     super.key,
-    required this.onPressed,
     required this.title,
     required this.backgroundColor,
     required this.foregroundColor,
+    this.onPressed,
   });
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(

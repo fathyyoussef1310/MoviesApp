@@ -108,7 +108,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               SizedBox(height: 12.h),
               CustomTextButton(
                 title: "Reset Password",
-                onPressed:()=> Get.offAll(()=>RoutesManager.Layout),
+                onPressed: () => Get.toNamed(RoutesManager.forgetPass),
                 color: ColorsManager.yellow,
               ),
               SizedBox(height: 120.h),

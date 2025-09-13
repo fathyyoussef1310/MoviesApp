@@ -27,7 +27,7 @@ class RoutesManager {
       case updateProfileUi:
         return CupertinoPageRoute(builder: (_) => const UpdateProfile());
       case forgetPass:
-        return CupertinoPageRoute(builder: (_) => const ForrgetPass());
+        return CupertinoPageRoute(builder: (_) =>  ForgetPassword());
       case Profile:
         return CupertinoPageRoute(builder: (_) => ProfileScreen());
       case Layout:
