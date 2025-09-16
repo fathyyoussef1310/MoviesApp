@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:moviesapproute/data/model/Movies.dart';
+import 'package:moviesapproute/data/model/HomepageApi/Movies.dart';
 
-import '../model/MovieResponce.dart';
+import '../model/HomepageApi/MovieResponce.dart';
 
 ///https://yts.mx/api/v2/list_movies.json
 class apiService {
