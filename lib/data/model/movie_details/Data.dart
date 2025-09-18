@@ -1,7 +1,8 @@
 import 'Movie.dart';
 
 class Data {
-  Data({this.movie,});
+  Data({
+      this.movie,});
 
   Data.fromJson(dynamic json) {
     movie = json['movie'] != null ? Movie.fromJson(json['movie']) : null;

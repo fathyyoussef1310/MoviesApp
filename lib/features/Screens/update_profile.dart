@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:moviesapproute/controllers/UpdateProfileController.dart';
 import 'package:moviesapproute/core/routes_manager/routesManager.dart';
 import 'package:moviesapproute/core/widgets/custom_text_button.dart';
-import 'package:moviesapproute/main_layout/layout_screen.dart';
+import 'package:moviesapproute/features/layout_screen.dart';
 import '../../core/colors_manager/colorsManager.dart';
 import '../../core/image_manager/imagesManager.dart';
 import '../../core/widgets/custom_elevated_button.dart';
@@ -108,7 +108,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               SizedBox(height: 12.h),
               CustomTextButton(
                 title: "Reset Password",
-                onPressed: () => Get.toNamed(RoutesManager.forgetPass),
+                onPressed:()=> Get.offAll(()=>RoutesManager.Layout),
                 color: ColorsManager.yellow,
               ),
               SizedBox(height: 120.h),

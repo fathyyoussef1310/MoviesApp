@@ -1,13 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:moviesapproute/core/colors_manager/colorsManager.dart';
 import 'package:provider/provider.dart';
-import 'package:moviesapproute/providers/movie_providers.dart';
+import 'package:moviesapproute/providers/movie_List_providers.dart';
 import 'dart:ui';
-
 import '../../../core/image_manager/imagesManager.dart';
+import '../widgets/movie_card.dart';
 
 class FeaturedMoviesSection extends StatefulWidget {
   const FeaturedMoviesSection({super.key});
@@ -21,7 +19,7 @@ class _FeaturedMoviesSectionState extends State<FeaturedMoviesSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<MoviesProvider>(
+    return Consumer<MoviesListProvider>(
       builder: (context, moviesProvider, child) {
         if (moviesProvider.isLoading) {
           return SafeArea(
@@ -37,7 +35,15 @@ class _FeaturedMoviesSectionState extends State<FeaturedMoviesSection> {
           return const Center(child: Text("No movies found"));
         }
 
-        final currentMovie = moviesProvider.movies[currentIndex];
+        final validMovies = moviesProvider.movies
+            .where((movie) => movie.mediumCoverImage != null && movie.mediumCoverImage!.isNotEmpty)
+            .toList();
+
+        if (validMovies.isEmpty) {
+          return const Center(child: Text("No valid movies with images"));
+        }
+
+        final currentMovie = validMovies[currentIndex];
 
         return Stack(
           children: [
@@ -49,6 +55,14 @@ class _FeaturedMoviesSectionState extends State<FeaturedMoviesSection> {
                   Image.network(
                     currentMovie.mediumCoverImage!,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.black,
+                        child: Center(
+                          child: Icon(Icons.broken_image, size: 50, color: Colors.white),
+                        ),
+                      );
+                    },
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -72,52 +86,13 @@ class _FeaturedMoviesSectionState extends State<FeaturedMoviesSection> {
                   child: Center(child: Image.asset(ImagesManager.avilableNow)),
                 ),
                 CarouselSlider.builder(
-                  itemCount: moviesProvider.movies.length,
+                  itemCount:5, //validMovies.length,
                   itemBuilder: (context, index, realIndex) {
-                    final movie = moviesProvider.movies[index];
-                    return
-                      Stack(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            image: DecorationImage(
-                              image: NetworkImage(movie.mediumCoverImage ?? ""),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top:15,
-                          left: 15,
-                          child: Container(
-                            padding: const EdgeInsets.all(7),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: ColorsManager.grayish,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  movie.rating?.toString() ?? "0.0",
-                                  style: GoogleFonts.inter(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorsManager.white,
-                                  ),
-                                ),
-                                SizedBox(width: 5.w),
-                                Icon(
-                                  Icons.star,
-                                  color: ColorsManager.yellow,
-                                  size: 18.sp,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                    final movie = validMovies[index];
+                    return MovieCard(
+                      movie: movie,
+                      width: 200,
+                      height: 300,
                     );
                   },
                   options: CarouselOptions(
@@ -133,9 +108,7 @@ class _FeaturedMoviesSectionState extends State<FeaturedMoviesSection> {
                     },
                   ),
                 ),
-
                 SizedBox(height: 21.h),
-
                 Center(child: Image.asset(ImagesManager.watchNow)),
               ],
             ),

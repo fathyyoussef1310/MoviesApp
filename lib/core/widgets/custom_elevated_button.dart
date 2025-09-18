@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String title;
-  final VoidCallback? onPressed;
-  final Color backgroundColor;
-  final Color foregroundColor;
+  final VoidCallback onPressed;
+  final Color backgroundColor; // 👈 لون الخلفية كـ parameter
+  final Color foregroundColor; // 👈 لون النص كـ parameter
 
   const CustomElevatedButton({
     super.key,
+    required this.onPressed,
     required this.title,
     required this.backgroundColor,
     required this.foregroundColor,
-    this.onPressed,
   });
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -26,7 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         textStyle: const TextStyle(
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
       ),

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../../../core/colors_manager/colorsManager.dart';
-import '../../../providers/movie_providers.dart';
+import '../../../providers/movie_List_providers.dart';
+import '../widgets/movie_card.dart';
 
 class MoviesCategorySection extends StatelessWidget {
   const MoviesCategorySection({
@@ -18,7 +18,7 @@ class MoviesCategorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<MoviesProvider>(
+    return Consumer<MoviesListProvider>(
       builder: (context, moviesProvider, child) {
         if (moviesProvider.isLoading) {
           return const Center(child: CircularProgressIndicator());
@@ -77,57 +77,15 @@ class MoviesCategorySection extends StatelessWidget {
               SizedBox(height: 15.h),
               SizedBox(
                 height: 300.h,
-                child: ListView.builder(
-                  itemCount: categoryMovies.length,
+                child:
+                ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(width: 15.w),
                   scrollDirection: Axis.horizontal,
+                  itemCount: categoryMovies.length,
                   itemBuilder: (context, index) {
                     final movie = categoryMovies[index];
-                    return Stack(
-                      children: [
-                        Container(
-                          width: 180.w,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                movie.mediumCoverImage ??
-                                    "https://via.placeholder.com/180x270",
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 15,
-                          left: 15,
-                          child: Container(
-                            padding: const EdgeInsets.all(7),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: ColorsManager.grayish,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  movie.rating?.toString() ?? "0.0",
-                                  style: GoogleFonts.inter(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorsManager.white,
-                                  ),
-                                ),
-                                SizedBox(width: 5.w),
-                                Icon(
-                                  Icons.star,
-                                  color: ColorsManager.yellow,
-                                  size: 18.sp,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                    return MovieCard(
+                      movie: movie,
                     );
                   },
                 ),

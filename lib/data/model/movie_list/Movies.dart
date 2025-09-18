@@ -1,3 +1,4 @@
+
 import 'Torrents.dart';
 
 class Movies {
@@ -28,6 +29,9 @@ class Movies {
     this.torrents,
     this.dateUploaded,
     this.dateUploadedUnix,
+    this.likeCount,
+    this.downloadCount,
+    this.viewCount,
   });
 
   Movies.fromJson(dynamic json) {
@@ -62,6 +66,11 @@ class Movies {
     }
     dateUploaded = json['date_uploaded'] as String?;
     dateUploadedUnix = json['date_uploaded_unix'] != null ? (json['date_uploaded_unix'] as num).toInt() : null;
+
+    // like/download/view counts: read if present, otherwise default to 0
+    likeCount = json['like_count'] != null ? (json['like_count'] as num).toInt() : 0;
+    downloadCount = json['download_count'] != null ? (json['download_count'] as num).toInt() : 0;
+    viewCount = json['view_count'] != null ? (json['view_count'] as num).toInt() : 0;
   }
 
   int? id;
@@ -90,6 +99,11 @@ class Movies {
   List<Torrents>? torrents;
   String? dateUploaded;
   int? dateUploadedUnix;
+
+  // counts
+  int? likeCount;
+  int? downloadCount;
+  int? viewCount; // may not be provided by API; defaults to 0 in fromJson
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -121,6 +135,11 @@ class Movies {
     }
     map['date_uploaded'] = dateUploaded;
     map['date_uploaded_unix'] = dateUploadedUnix;
+
+    map['like_count'] = likeCount;
+    map['download_count'] = downloadCount;
+    map['view_count'] = viewCount;
+
     return map;
   }
 }

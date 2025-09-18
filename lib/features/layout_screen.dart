@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:moviesapproute/core/colors_manager/colorsManager.dart';
-import 'package:moviesapproute/main_layout/explore/explore_screen.dart';
-import 'package:moviesapproute/main_layout/profile/profile_screen.dart';
-import 'package:moviesapproute/main_layout/search/search_screen.dart';
+import 'package:moviesapproute/features/profile/profile_screen.dart';
+import 'package:moviesapproute/features/search/search_screen.dart';
 
-import '../features/home/home_screen.dart';
+import 'explore/explore_screen.dart';
+import 'home/home_screen.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
@@ -33,7 +33,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(
-            color: ColorsManager.grayish,
+            color: ColorsManager.gray,
             borderRadius: BorderRadius.circular(30),
           ),
           child: Row(
