@@ -86,7 +86,7 @@ class MovieDetailsScreen extends StatelessWidget {
                 Padding(
                   padding:  EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
-                    movie.descriptionFull ?? "No description",
+                    movie.title ?? "No description",
                     style:  TextStyle(fontSize: 16, height: 1.5,color: ColorsManager.yellow),
                   ),
                 ),

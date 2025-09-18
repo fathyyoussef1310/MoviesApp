@@ -8,6 +8,7 @@ import 'package:moviesapproute/providers/movie_providers.dart';
 import 'dart:ui';
 
 import '../../../core/image_manager/imagesManager.dart';
+import '../../../main_layout/MoviesDetailsScreen.dart';
 
 class FeaturedMoviesSection extends StatefulWidget {
   const FeaturedMoviesSection({super.key});
@@ -41,6 +42,7 @@ class _FeaturedMoviesSectionState extends State<FeaturedMoviesSection> {
 
         return Stack(
           children: [
+            // الخلفية
             Positioned.fill(
               child: currentMovie.mediumCoverImage != null
                   ? Stack(
@@ -51,7 +53,7 @@ class _FeaturedMoviesSectionState extends State<FeaturedMoviesSection> {
                     fit: BoxFit.cover,
                   ),
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -66,6 +68,8 @@ class _FeaturedMoviesSectionState extends State<FeaturedMoviesSection> {
               )
                   : Container(color: Colors.black),
             ),
+
+            // المحتوى
             Column(
               children: [
                 SafeArea(
@@ -75,49 +79,62 @@ class _FeaturedMoviesSectionState extends State<FeaturedMoviesSection> {
                   itemCount: moviesProvider.movies.length,
                   itemBuilder: (context, index, realIndex) {
                     final movie = moviesProvider.movies[index];
-                    return
-                      Stack(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            image: DecorationImage(
-                              image: NetworkImage(movie.mediumCoverImage ?? ""),
-                              fit: BoxFit.cover,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MovieDetailsScreen(
+                              movieId: movie.id ?? 0,
                             ),
                           ),
-                        ),
-                        Positioned(
-                          top:15,
-                          left: 15,
-                          child: Container(
-                            padding: const EdgeInsets.all(7),
+                        );
+                      },
+                      child: Stack(
+                        children: [
+                          Container(
+                            margin:
+                            const EdgeInsets.symmetric(horizontal: 5.0),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: ColorsManager.grayish,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  movie.rating?.toString() ?? "0.0",
-                                  style: GoogleFonts.inter(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorsManager.white,
-                                  ),
-                                ),
-                                SizedBox(width: 5.w),
-                                Icon(
-                                  Icons.star,
-                                  color: ColorsManager.yellow,
-                                  size: 18.sp,
-                                ),
-                              ],
+                              borderRadius: BorderRadius.circular(18),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    movie.mediumCoverImage ?? ""),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Positioned(
+                            top: 15,
+                            left: 15,
+                            child: Container(
+                              padding: const EdgeInsets.all(7),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: ColorsManager.grayish,
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    movie.rating?.toString() ?? "0.0",
+                                    style: GoogleFonts.inter(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorsManager.white,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5.w),
+                                  Icon(
+                                    Icons.star,
+                                    color: ColorsManager.yellow,
+                                    size: 18.sp,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                   options: CarouselOptions(

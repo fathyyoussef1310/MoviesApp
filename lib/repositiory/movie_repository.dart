@@ -1,10 +1,10 @@
-import 'package:moviesapproute/data/api_service/api_service_moive_details/ap_services.dart';
+import 'package:moviesapproute/data/api_service/api_service.dart';
 import '../data/model/MovieDetailsApi/MovieDetailsResponse.dart';
 class MovieRepository {
-  final ApiServiceMoviesDetails apiService;
+  final ApiService apiService;
   MovieRepository(this.apiService);
   Future<MovieDetailsResponse> fetchMovieDetails(int movieId) {
-    return apiService.getMovieDetails(movieId);
+    return ApiService.getMovieDetails(movieId);
   }
 } /////ديه عشان الشرح ليا مش اكتر
 

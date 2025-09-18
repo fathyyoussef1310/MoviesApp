@@ -11,7 +11,7 @@ class MoviesProvider extends ChangeNotifier {
       isLoading = true;
       errorMessage = null;
       notifyListeners();
-      movies = await apiService.getMovies() ?? [];
+      movies = await ApiService.getMovies() ?? [];
     } catch (e) {
       errorMessage = "Failed to load movies: $e";
     } finally {

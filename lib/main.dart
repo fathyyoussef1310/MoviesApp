@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:moviesapproute/data/api_service/api_service.dart';
 import 'package:moviesapproute/main_layout/MoviesDetailsScreen.dart';
 import 'package:moviesapproute/repositiory/movie_repository.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,6 @@ import 'package:moviesapproute/core/routes_manager/routesManager.dart';
 import 'package:moviesapproute/features/Screens/onboarding/onboarding_screen.dart';
 import 'package:moviesapproute/features/authentication/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:moviesapproute/data/api_service/api_service_moive_details/ap_services.dart';
 import 'package:moviesapproute/providers/movie_details_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(
           create: (_) => MovieDetailsProvider(
-            MovieRepository(ApiServiceMoviesDetails()),
+            MovieRepository(ApiService()),
           ),
         ),
       ],
