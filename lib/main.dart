@@ -7,7 +7,7 @@ import 'package:moviesapproute/features/Screens/onboarding/onboarding_screen.dar
 import 'core/routes_manager/routesManager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:moviesapproute/providers/movie_List_providers.dart'; // مثال على Provider عندك
+import 'package:moviesapproute/providers/movie_List_providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,6 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MoviesListProvider()),
-        // ممكن تضيف أي Provider آخر هنا
       ],
       child: MyApp(
         onboardingSeen: onboardingSeen,

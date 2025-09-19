@@ -1,25 +1,41 @@
-import 'package:flutter/foundation.dart';
-import '../data/api_service/api_service.dart';
-import '../data/model/MovieDetailsApi/Movie.dart';
+import 'package:flutter/material.dart';
+import '../data/model/movie_list/Movies.dart';
+import '../repository/movie_repository.dart';
+import '../data/model/movie_suggestins/Movie.dart';
 
-class MoviesSuggestionsProvider extends ChangeNotifier {
+class MovieSuggestionsProvider with ChangeNotifier {
+  final MovieSuggestionsRepository repository;
+  MovieSuggestionsProvider(this.repository);
+
   bool isLoading = false;
+  List<Movies>? suggestions;
   String? errorMessage;
-  List<Movie> suggestions = [];
 
   Future<void> loadSuggestions(int movieId) async {
-    try {
-      isLoading = true;
-      errorMessage = null;
-      notifyListeners();
+    isLoading = true;
+    errorMessage = null;
+    notifyListeners();
 
-      final movies = await ApiService.getMoviesSuggetions(movieId);
-      suggestions = movies as List<Movie>;
+    try {
+      final movieSuggestions = await repository.fetchSuggestions(movieId);
+
+      if (movieSuggestions != null) {
+        suggestions = movieSuggestions
+            .map((m) => Movies(
+          id: m.id,
+          title: m.title,
+          mediumCoverImage: m.mediumCoverImage,
+          rating: m.rating,
+        ))
+            .toList();
+      } else {
+        suggestions = [];
+      }
     } catch (e) {
       errorMessage = e.toString();
-    } finally {
-      isLoading = false;
-      notifyListeners();
     }
+
+    isLoading = false;
+    notifyListeners();
   }
 }

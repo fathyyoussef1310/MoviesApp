@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moviesapproute/core/colors_manager/colorsManager.dart';
 import 'package:provider/provider.dart';
-import '../../providers/movie_details_provider.dart';
+import '../providers/movie_details_providers.dart';
 class MovieDetailsScreen extends StatelessWidget {
   final int movieId;
   const MovieDetailsScreen({super.key, required this.movieId});
