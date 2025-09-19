@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:moviesapproute/data/api_service/api_service.dart';
-import 'package:moviesapproute/main_layout/MoviesDetailsScreen.dart';
-import 'package:moviesapproute/repositiory/movie_repository.dart';
-import 'package:provider/provider.dart';
-import 'package:moviesapproute/main_layout/layout_screen.dart';
-import 'package:moviesapproute/core/routes_manager/routesManager.dart';
-import 'package:moviesapproute/features/Screens/onboarding/onboarding_screen.dart';
+import 'package:moviesapproute/features/layout_screen.dart';
 import 'package:moviesapproute/features/authentication/Login.dart';
+import 'package:moviesapproute/features/Screens/onboarding/onboarding_screen.dart';
+import 'core/routes_manager/routesManager.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:moviesapproute/providers/movie_details_provider.dart';
+import 'package:moviesapproute/providers/movie_List_providers.dart'; // مثال على Provider عندك
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   final prefs = await SharedPreferences.getInstance();
   final bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-  final bool? onboardingSeen = prefs.getBool('onboarding_seen');
+  final bool onboardingSeen = prefs.getBool('onboarding_seen') ?? false;
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => MovieDetailsProvider(
-            MovieRepository(ApiService()),
-          ),
-        ),
+        ChangeNotifierProvider(create: (_) => MoviesListProvider()),
+        // ممكن تضيف أي Provider آخر هنا
       ],
       child: MyApp(
-        onboardingSeen: onboardingSeen ?? false,
+        onboardingSeen: onboardingSeen,
         isLoggedIn: isLoggedIn,
       ),
     ),
@@ -36,6 +33,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   final bool onboardingSeen;
   final bool isLoggedIn;
+
   const MyApp({
     required this.onboardingSeen,
     required this.isLoggedIn,
@@ -51,10 +49,19 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RoutesManager.getRoute,
-          home: onboardingSeen ? (isLoggedIn ? LayoutScreen() : LoginScreen()) : OnBoardingScreen(),
-          // home: MovieDetailsScreen(movieId: 3),
+          home: _getInitialScreen(),
         );
       },
     );
+  }
+
+  Widget _getInitialScreen() {
+    if (!onboardingSeen) {
+      return OnBoardingScreen();
+    } else if (isLoggedIn) {
+      return LayoutScreen();
+    } else {
+      return LoginScreen();
+    }
   }
 }

@@ -2,7 +2,8 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 class ColorsManager {
   static const Color darkBlack = Color(0xFF121312);
-  static const Color grayish = Color(0xFF282A28);
+  static const Color gray = Color(0xFF282A28);
+  static const Color grayish = Color(0xFFADADAD);
   static const Color yellow=Color(0xFFFFBB3B);
   static const Color white=Color(0xffFFFFFF);
   static const Color ofwhite=Color(0xffFFFFFF);
