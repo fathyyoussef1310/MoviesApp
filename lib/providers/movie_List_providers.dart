@@ -4,6 +4,7 @@ import '../data/model/movie_list/Movies.dart';
 
 class MoviesListProvider extends ChangeNotifier {
   List<Movies> movies = [];
+  List<Movies> searchResults = [];
 
   bool isLoading = false;
   String? errorMessage;
@@ -23,5 +24,31 @@ class MoviesListProvider extends ChangeNotifier {
     }
   }
 
+  // البحث عن الأفلام
+  Future<void> searchMovies(String query) async {
+    if (query.isEmpty) {
+      searchResults = [];
+      notifyListeners();
+      return;
+    }
 
+    try {
+      isLoading = true;
+      errorMessage = null;
+      notifyListeners();
+
+      searchResults = await ApiService.searchMovies(query) ?? [];
+    } catch (e) {
+      errorMessage = "Failed to search movies: $e";
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // مسح نتائج البحث
+  void clearSearch() {
+    searchResults = [];
+    notifyListeners();
+  }
 }

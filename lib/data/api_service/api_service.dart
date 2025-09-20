@@ -22,7 +22,7 @@ class ApiService {
   }
 
   // Get movie details
-   Future<MovieDetailsResponse> getMovieDetails(int movieId) async {
+  Future<MovieDetailsResponse> getMovieDetails(int movieId) async {
     Uri uri = Uri.https(baseUrl, movieDetailsEndPoint, {
       "movie_id": movieId.toString(),
     });
@@ -63,5 +63,23 @@ class ApiService {
       throw Exception("Failed to fetch movie suggestions");
     }
   }
+
+  // Search movies
+  static Future<List<Movies>?> searchMovies(String query) async {
+    Uri uri = Uri.https(baseUrl, moviesEndPoint, {
+      "query_term": query,
+    });
+
+    http.Response response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      MoviesResponce moviesResponse = MoviesResponce.fromJson(json);
+      return moviesResponse.data?.movies ?? [];
+    } else {
+      throw Exception("Failed to search movies");
+    }
+  }
+
 
 }
