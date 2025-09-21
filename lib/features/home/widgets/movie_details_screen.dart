@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../../data/api_service/api_service.dart';
 import '../../../providers/movie_details_providers.dart';
 import '../../../providers/movie_suggestion_provider.dart';
-import '../../../repository/movie_repository.dart';
+import '../../../repositiory/movie_repository.dart';
 import '../../../features/home/widgets/movie_card.dart';
 
 class MovieDetailsScreen extends StatelessWidget {

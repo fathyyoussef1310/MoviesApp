@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/model/movie_list/Movies.dart';
-import '../repository/movie_repository.dart';
+import '../repositiory/movie_repository.dart';
 import '../data/model/movie_suggestins/Movie.dart';
 
 class MovieSuggestionsProvider with ChangeNotifier {

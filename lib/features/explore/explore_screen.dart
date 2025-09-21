@@ -1,119 +1,112 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:moviesapproute/core/colors_manager/colorsManager.dart';
+import 'package:moviesapproute/data/api_service/api_service.dart';
+import 'package:moviesapproute/repositiory/movie_repository.dart';
+import 'package:moviesapproute/controllers/BrowseControllers.dart';
+import 'package:moviesapproute/data/model/movie_list/Movies.dart';
+import '../home/widgets/movie_card.dart';
+import '../home/widgets/movie_details_screen.dart';
 
-class Movie {
-  final String title;
-  final String image;
-  final String category;
-  Movie({required this.title, required this.image, required this.category});
-}
-
-class ExploreScreen extends StatefulWidget {
-  const ExploreScreen({super.key});
-
-  @override
-  State<ExploreScreen> createState() => _ExploreScreenState();
-}
-
-class _ExploreScreenState extends State<ExploreScreen> {
-  String selectedCategory = "All";
-
-  List<String> categories = [
-    "All",
-    "Action",
-    "Comedy",
-    "Drama",
-    "Horror",
-    "Romance",
-  ];
-
-  List<Movie> allMovies = [
-    Movie(title: 'Movie 1', image: 'assets/Images/movie1.png', category: "Action"),
-    Movie(title: 'Movie 2', image: 'assets/Images/movie2.png', category: "Comedy"),
-    Movie(title: 'Movie 3', image: 'assets/Images/movie3.png', category: "Drama"),
-    Movie(title: 'Movie 4', image: 'assets/Images/movie5.png', category: "Horror"),
-    Movie(title: 'Movie 5', image: 'assets/Images/movie4.png', category: "Romance"),
-    Movie(title: 'Movie 6', image: 'assets/Images/movie6.png', category: "Action"),
-  ];
+class ExploreScreen extends StatelessWidget {
+  ExploreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    List<Movie> filteredMovies = selectedCategory == "All"
-        ? allMovies
-        : allMovies.where((m) => m.category == selectedCategory).toList();
-
+    final BrowseController controller =
+    Get.put(BrowseController(BrowseRepository(ApiService())));
+    final baseCategories = ["All"];
     return Scaffold(
       backgroundColor: ColorsManager.darkBlack,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Categories Bar
-              SizedBox(
-                height: 50,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  separatorBuilder: (context, index) => const SizedBox(width: 12),
-                  itemBuilder: (context, index) {
-                    final category = categories[index];
-                    final isSelected = category == selectedCategory;
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedCategory = category;
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: isSelected ? Colors.yellow : ColorsManager.darkBlack,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: ColorsManager.yellow,
-                            width: 2,
+              Obx(() {
+                final categories = [...baseCategories, ...controller.genres.toList()];
+                return SizedBox(
+                  height: 50.h,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categories.length,
+                    separatorBuilder: (context, index) => SizedBox(width: 12),
+                    itemBuilder: (context, index) {
+                      final category = categories[index];
+                      final isSelected = category == controller.selectedCategory.value;
+                      return GestureDetector(
+                        onTap: () {
+                          controller.changeCategory(category);
+                        },
+                        child: Container(
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
+                          decoration: BoxDecoration(
+                            color: isSelected ? ColorsManager.yellow : ColorsManager.darkBlack,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: ColorsManager.yellow,
+                              width: 2,
+                            ),
+                          ),
+                          child: Text(category, style: TextStyle(color: isSelected ? ColorsManager.darkBlack : ColorsManager.yellow, fontWeight: FontWeight.bold, fontSize: 18.sp,),
                           ),
                         ),
-                        child: Text(
-                          category,
-                          style: TextStyle(
-                            color: isSelected ? ColorsManager.darkBlack: ColorsManager.yellow,
-                            fontWeight: FontWeight.bold,fontSize: 20
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            
-            
-              const SizedBox(height: 20),
-            
-              // Movies Grid
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    childAspectRatio: 0.7,
+                      );
+                    },
                   ),
-                  itemCount: filteredMovies.length,
-                  itemBuilder: (context, index) {
-                    final movie = filteredMovies[index];
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        movie.image,
-                        fit: BoxFit.cover,
-                      ),
+                );
+              }),
+              SizedBox(height: 20.h),
+              Expanded(
+                child: Obx(() {
+                  if (controller.isLoading.value && controller.movies.isEmpty) {
+                    return Center(
+                      child: CircularProgressIndicator(color: ColorsManager.yellow),
                     );
-                  },
-                ),
+                  }
+                  List<Movies> displayedMovies =
+                  controller.selectedCategory.value == "All" ? controller.movies : controller.filterByGenre(controller.selectedCategory.value);
+                  if (displayedMovies.isEmpty) {
+                    return Center(child: Text("No movies found", style: TextStyle(color: ColorsManager.red)),);
+                  }
+                  return GridView.builder(
+                    controller: controller.scrollController,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16.sp,
+                      crossAxisSpacing: 16.sp,
+                      childAspectRatio: 0.6,
+                    ),
+                    itemCount: displayedMovies.length,
+                    itemBuilder: (context, index) {
+                      final movie = displayedMovies[index];
+
+                      return GestureDetector(
+                        onTap: () {
+                          Get.to(()=> MovieDetailsScreen(movieId: movie.id!,));
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.network(
+                                  movie.mediumCoverImage ?? "https://via.placeholder.com/150", ///Chat
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                }),
               ),
             ],
           ),

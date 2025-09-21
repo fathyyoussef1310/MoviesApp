@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/model/movie_details/MovieDetailsResponce.dart';
-import '../repository/movie_repository.dart';
+import '../repositiory/movie_repository.dart';
 
 class MovieDetailsProvider with ChangeNotifier {
   final MovieRepository repository;
