@@ -67,8 +67,7 @@ class ExploreScreen extends StatelessWidget {
                       child: CircularProgressIndicator(color: ColorsManager.yellow),
                     );
                   }
-                  List<Movies> displayedMovies =
-                  controller.selectedCategory.value == "All" ? controller.movies : controller.filterByGenre(controller.selectedCategory.value);
+                  List<Movies> displayedMovies = controller.selectedCategory.value == "All" ? controller.movies : controller.filterByGenre(controller.selectedCategory.value);
                   if (displayedMovies.isEmpty) {
                     return Center(child: Text("No movies found", style: TextStyle(color: ColorsManager.red)),);
                   }
