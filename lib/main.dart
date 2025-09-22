@@ -8,6 +8,7 @@ import 'core/routes_manager/routesManager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:moviesapproute/providers/movie_List_providers.dart';
+import 'package:moviesapproute/providers/favorites_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MoviesListProvider()),
+        ChangeNotifierProvider(create: (_) => FavoritesProvider()),
       ],
       child: MyApp(
         onboardingSeen: onboardingSeen,

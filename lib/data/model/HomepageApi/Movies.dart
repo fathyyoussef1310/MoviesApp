@@ -27,7 +27,7 @@ class Movies {
     this.state,
     this.torrents,
     this.dateUploaded,
-    this.dateUploadedUnix,
+    this.dateUploadedUnix, required likeCount,
   });
 
   Movies.fromJson(dynamic json) {

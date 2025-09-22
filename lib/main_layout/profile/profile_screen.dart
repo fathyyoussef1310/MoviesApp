@@ -1,64 +1,37 @@
+// profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:moviesapproute/controllers/UpdateProfileController.dart';
 import 'package:moviesapproute/core/colors_manager/colorsManager.dart';
 import 'package:moviesapproute/core/image_manager/imagesManager.dart';
 import 'package:moviesapproute/core/routes_manager/routesManager.dart';
-import 'package:moviesapproute/features/Screens/update_profile.dart';
-
-class Movie {
-  final String title;
-  final String image;
-
-  Movie({required this.title, required this.image});
-}
-
-// test watch list
-List<Movie> watchListMovies = [
-  // Movie(title: "Movie 1", image: "assets/Images/movie1.png"),
-  // Movie(title: "Movie 2", image: "assets/Images/movie2.png"),
-  // Movie(title: "Movie 3", image: "assets/Images/movie3.png"),
-  // Movie(title: "Movie 4", image: "assets/Images/movie4.png"),
-  // Movie(title: "Movie 5", image: "assets/Images/movie5.png"),
-  // Movie(title: "Movie 6", image: "assets/Images/movie6.png"),
-];
-
-// test history list
-List<Movie> historyMovies = [
-  // Movie(title: "Movie 1", image: "assets/Images/movie1.png"),
-  // Movie(title: "Movie 2", image: "assets/Images/movie2.png"),
-  // Movie(title: "Movie 3", image: "assets/Images/movie3.png"),
-  // Movie(title: "Movie 4", image: "assets/Images/movie4.png"),
-  // Movie(title: "Movie 5", image: "assets/Images/movie5.png"),
-  // Movie(title: "Movie 6", image: "assets/Images/movie6.png"),
-  // Movie(title: "Movie 1", image: "assets/Images/movie1.png"),
-  // Movie(title: "Movie 2", image: "assets/Images/movie2.png"),
-  // Movie(title: "Movie 3", image: "assets/Images/movie3.png"),
-  // Movie(title: "Movie 4", image: "assets/Images/movie4.png"),
-  // Movie(title: "Movie 5", image: "assets/Images/movie5.png"),
-  // Movie(title: "Movie 6", image: "assets/Images/movie6.png"),
-];
+import 'package:provider/provider.dart';
+import 'package:moviesapproute/providers/favorites_provider.dart';
+import 'package:moviesapproute/data/model/movie_list/Movies.dart';
 
 class ProfileScreen extends StatefulWidget {
-   ProfileScreen({super.key});
-  final UpdateProfileController updateProfileController= Get.put(UpdateProfileController());
+  ProfileScreen({super.key});
+  final UpdateProfileController updateProfileController =
+  Get.put(UpdateProfileController());
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
+
 class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
-  Widget buildMovieGrid(List<Movie> movies) {
+
+  Widget buildMovieGrid(List<Movies> movies) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         mainAxisSpacing: 12,
         crossAxisSpacing: 12,
@@ -72,15 +45,18 @@ class _ProfileScreenState extends State<ProfileScreen>
             Expanded(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  movie.image,
+                child: Image.network(
+                  movie.mediumCoverImage ?? "",
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                  const Icon(Icons.broken_image,
+                      size: 40, color: ColorsManager.ofwhite),
                 ),
               ),
             ),
             const SizedBox(height: 5),
             Text(
-              movie.title,
+              movie.title ?? "No Title",
               style: const TextStyle(color: ColorsManager.white, fontSize: 12),
               overflow: TextOverflow.ellipsis,
             ),
@@ -89,6 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen>
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,52 +74,86 @@ class _ProfileScreenState extends State<ProfileScreen>
         child: Column(
           children: [
             const SizedBox(height: 16),
-            Obx(()=>Row(
+            Obx(
+                  () => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
                     children: [
                       CircleAvatar(
                         radius: 55,
-                        backgroundImage: AssetImage( widget.updateProfileController.selectedAvatarId.value == 1 ? ImagesManager.User1 : widget.updateProfileController.selectedAvatarId.value == 2 ? ImagesManager.User2 : ImagesManager.User3,),
+                        backgroundImage: AssetImage(
+                          widget.updateProfileController.selectedAvatarId.value == 1
+                              ? ImagesManager.User1
+                              : widget.updateProfileController.selectedAvatarId.value == 2
+                              ? ImagesManager.User2
+                              : ImagesManager.User3,
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.updateProfileController.nameController.text, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: ColorsManager.white)),
+                          Text(
+                            widget.updateProfileController.nameController.text,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: ColorsManager.white,
+                            ),
+                          ),
                         ],
                       ),
                     ],
                   ),
-                  SizedBox(width: 80),
-                  Column(
-                    children: const [
-                      Text("12",
-                          style: TextStyle(
+                  const SizedBox(width: 80),
+                  Consumer<FavoritesProvider>(
+                    builder: (context, favProvider, _) {
+                      return Column(
+                        children: [
+                          Text(
+                            favProvider.favorites.length.toString(),
+                            style: const TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
-                              color: ColorsManager.white)),
-                      Text("Wish List",
-                          style: TextStyle(
+                              color: ColorsManager.white,
+                            ),
+                          ),
+                          const Text(
+                            "Wish List",
+                            style: TextStyle(
                               color: ColorsManager.white,
                               fontSize: 20,
-                              fontWeight: FontWeight.bold)),
-                    ],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   const SizedBox(width: 20),
-                  Column(
-                    children: const [
-                      Text("10",
-                          style: TextStyle(
+                  Consumer<FavoritesProvider>(
+                    builder: (context, favProvider, _) {
+                      return Column(
+                        children: [
+                          Text(
+                            favProvider.history.length.toString(),
+                            style: const TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
-                              color: ColorsManager.white)),
-                      Text("History",
-                          style: TextStyle(
+                              color: ColorsManager.white,
+                            ),
+                          ),
+                          const Text(
+                            "History",
+                            style: TextStyle(
                               color: ColorsManager.white,
                               fontSize: 20,
-                              fontWeight: FontWeight.bold)),
-                    ],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   const SizedBox(width: 16),
                 ],
@@ -156,31 +167,43 @@ class _ProfileScreenState extends State<ProfileScreen>
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                      Get.offAllNamed(RoutesManager.updateProfileUi);
+                        Get.offAllNamed(RoutesManager.updateProfileUi);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorsManager.yellow,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                      child: const Text("Edit Profile",
-                          style: TextStyle(
-                              color: ColorsManager.darkBlack, fontSize: 20)),
+                      child: const Text(
+                        "Edit Profile",
+                        style: TextStyle(
+                          color: ColorsManager.darkBlack,
+                          fontSize: 20,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: () {},
-                      label: const Text("Exit",
-                          style: TextStyle(
-                              color: ColorsManager.white, fontSize: 20)),
-                      icon: const Icon(LucideIcons.logOut,
-                          color: ColorsManager.white),
+                      label: const Text(
+                        "Exit",
+                        style: TextStyle(
+                          color: ColorsManager.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                      icon: const Icon(
+                        LucideIcons.logOut,
+                        color: ColorsManager.white,
+                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorsManager.red,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
                   ),
@@ -202,42 +225,56 @@ class _ProfileScreenState extends State<ProfileScreen>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  watchListMovies.isEmpty
-                      ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Image(image: AssetImage(ImagesManager.popcorn)),
-                        SizedBox(height: 10),
-                        Text("No movies yet",
-                            style: TextStyle(color: ColorsManager.ofwhite)),
-                      ],
-                    ),
-                  )
-                      : Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: buildMovieGrid(watchListMovies),
+                  Consumer<FavoritesProvider>(
+                    builder: (context, favProvider, _) {
+                      return favProvider.favorites.isEmpty
+                          ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Image(
+                              image: AssetImage(ImagesManager.popcorn),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              "No movies yet",
+                              style: TextStyle(color: ColorsManager.ofwhite),
+                            ),
+                          ],
+                        ),
+                      )
+                          : Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: buildMovieGrid(favProvider.favorites.cast<Movies>()),
+                      );
+                    },
                   ),
-                  historyMovies.isEmpty
-                      ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.history,
-                            size: 80, color: ColorsManager.yellow),
-                        SizedBox(height: 10),
-                        Text("No history yet",
-                            style: TextStyle(color:  ColorsManager.ofwhite)),
-                      ],
-                    ),
-                  )
-                      : Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: buildMovieGrid(historyMovies),
+                  Consumer<FavoritesProvider>(
+                    builder: (context, favProvider, _) {
+                      return favProvider.history.isEmpty
+                          ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.history,
+                                size: 80, color: ColorsManager.yellow),
+                            SizedBox(height: 10),
+                            Text(
+                              "No history yet",
+                              style: TextStyle(color: ColorsManager.ofwhite),
+                            ),
+                          ],
+                        ),
+                      )
+                          : Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: buildMovieGrid(favProvider.history.cast<Movies>()),
+                      );
+                    },
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

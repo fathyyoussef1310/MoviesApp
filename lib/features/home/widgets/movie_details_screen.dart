@@ -4,12 +4,28 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:moviesapproute/core/colors_manager/colorsManager.dart';
 import 'package:moviesapproute/core/widgets/custom_container.dart';
 import 'package:moviesapproute/core/widgets/custom_elevated_button.dart';
+import 'package:moviesapproute/data/model/HomepageApi/Movies.dart';
+import 'package:moviesapproute/data/model/MovieDetailsApi/Movie.dart';
 import 'package:provider/provider.dart';
 import '../../../data/api_service/api_service.dart';
+import '../../../data/model/movie_list/Movies.dart' hide Movies;
+import '../../../providers/favorites_provider.dart';
 import '../../../providers/movie_details_providers.dart';
 import '../../../providers/movie_suggestion_provider.dart';
 import '../../../repositiory/movie_repository.dart';
 import '../../../features/home/widgets/movie_card.dart';
+
+// Converter function from Movie (API) to Movies (provider)
+Movies convertMovieToMovies(dynamic movie) {
+  return Movies(
+    id: movie.id,
+    title: movie.title ?? movie.titleLong ?? "No Title",
+    mediumCoverImage: movie.mediumCoverImage ?? "",
+    largeCoverImage: movie.largeCoverImage ?? "",
+    rating: movie.rating ?? 0.0,
+    likeCount: movie.likeCount ?? 0,
+  );
+}
 
 class MovieDetailsScreen extends StatelessWidget {
   final int movieId;
@@ -22,18 +38,15 @@ class MovieDetailsScreen extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) {
-            final provider = MovieDetailsProvider(
-              MovieRepository(ApiService()),
-            );
+            final provider = MovieDetailsProvider(MovieRepository(ApiService()));
             provider.loadMovieDetails(movieId);
             return provider;
           },
         ),
         ChangeNotifierProvider(
           create: (_) {
-            final provider = MovieSuggestionsProvider(
-              MovieSuggestionsRepository(ApiService()),
-            );
+            final provider =
+            MovieSuggestionsProvider(MovieSuggestionsRepository(ApiService()));
             provider.loadSuggestions(movieId);
             return provider;
           },
@@ -55,6 +68,10 @@ class MovieDetailsScreen extends StatelessWidget {
             return const Center(child: Text("No movie data available"));
           }
 
+          final favProvider = Provider.of<FavoritesProvider>(context);
+
+          final isFavorite = favProvider.favorites.any((m) => m.id == movie.id);
+
           return Scaffold(
             backgroundColor: ColorsManager.scaffoldBackgroundColor,
             extendBodyBehindAppBar: true,
@@ -67,8 +84,14 @@ class MovieDetailsScreen extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.bookmark, size: 30, color: ColorsManager.white),
-                  onPressed: () {},
+                  icon: Icon(
+                    isFavorite ? Icons.bookmark : Icons.bookmark_border,
+                    size: 30,
+                    color: ColorsManager.white,
+                  ),
+                  onPressed: () {
+                    favProvider.toggleFavorite(convertMovieToMovies(movie) as Movies);
+                  },
                 ),
               ],
             ),
@@ -76,7 +99,7 @@ class MovieDetailsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Poster + Play Icon
+                  // Poster Section
                   AspectRatio(
                     aspectRatio: 2 / 3,
                     child: Stack(
@@ -105,18 +128,20 @@ class MovieDetailsScreen extends StatelessWidget {
                             children: [
                               Center(
                                 child: Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white.withOpacity(0.5),
-                                    ),
-                                    child: Icon(Icons.play_arrow_outlined, size: 60, color: ColorsManager.white)),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white.withOpacity(0.5),
+                                  ),
+                                  child: Icon(Icons.play_arrow_outlined,
+                                      size: 60, color: ColorsManager.white),
+                                ),
                               ),
                               SizedBox(height: 20.h),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(
                                   child: Text(
-                                    movie.titleLong ?? "Unknown Name",
+                                    movie.titleLong ?? movie.title ?? "Unknown Name",
                                     style: GoogleFonts.inter(
                                       fontSize: 28,
                                       fontWeight: FontWeight.bold,
@@ -149,7 +174,9 @@ class MovieDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         CustomElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            favProvider.addToHistory(convertMovieToMovies(movie) as Movies);
+                          },
                           title: "Watch",
                           backgroundColor: ColorsManager.red,
                           foregroundColor: ColorsManager.white,
@@ -173,6 +200,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 15.h),
+                        // Screenshots
                         Text(
                           "Screen Shots",
                           style: GoogleFonts.inter(
@@ -185,13 +213,11 @@ class MovieDetailsScreen extends StatelessWidget {
                         Consumer<MovieDetailsProvider>(
                           builder: (context, detailsProvider, _) {
                             final movie = detailsProvider.movieDetails!.data?.movie;
-
                             final List<String> screenshots = [
                               movie?.backgroundImage ?? "",
                               movie?.backgroundImageOriginal ?? "",
                               movie?.backgroundImageOriginal ?? "",
                             ];
-
                             return Column(
                               children: screenshots.map((imageUrl) {
                                 if (imageUrl.isEmpty) {
@@ -227,20 +253,15 @@ class MovieDetailsScreen extends StatelessWidget {
                           },
                         ),
                         SizedBox(height: 15.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                          child: Divider(color: ColorsManager.grayish, thickness: 1.h),
-                        ),
+                        // Similar Movies
                         Text(
                           "Similar",
                           style: GoogleFonts.inter(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: ColorsManager.white
-                          ),
+                              color: ColorsManager.white),
                         ),
                         SizedBox(height: 15.h),
-                        // Movie Suggestions Section
                         Consumer<MovieSuggestionsProvider>(
                           builder: (context, provider, _) {
                             if (provider.isLoading) {
@@ -264,77 +285,67 @@ class MovieDetailsScreen extends StatelessWidget {
 
                             final suggestions = provider.suggestions ?? [];
 
-                            return
-                              Column(
-                                children: List.generate(
-                                  (suggestions.length / 2).ceil(),
-                                      (index) {
-                                    int first = index * 2;
-                                    int second = first + 1;
+                            return Column(
+                              children: List.generate(
+                                (suggestions.length / 2).ceil(),
+                                    (index) {
+                                  int first = index * 2;
+                                  int second = first + 1;
 
-                                    return Padding(
-                                      padding: const EdgeInsets.only(bottom: 16), // <- دي المسافة بين الصفوف
-                                      child: Row(
-                                        children: [
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 16),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: MovieCard(
+                                            movie: suggestions[first],
+                                            height: 270,
+                                          ),
+                                        ),
+                                        SizedBox(width: 16.w),
+                                        if (second < suggestions.length)
                                           Expanded(
                                             child: MovieCard(
-                                              movie: suggestions[first],
+                                              movie: suggestions[second],
                                               height: 270,
                                             ),
-                                          ),
-                                          SizedBox(width: 16.w), // المسافة بين الكاردس داخل الصف
-                                          if (second < suggestions.length)
-                                            Expanded(
-                                              child: MovieCard(
-                                                movie: suggestions[second],
-                                                height: 270,
-                                              ),
-                                            )
-                                          else
-                                            Expanded(child: Container()),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            ;
+                                          )
+                                        else
+                                          Expanded(child: Container()),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
                           },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                          child: Divider(color: ColorsManager.grayish, thickness: 1.h),
-                        ),
                         SizedBox(height: 10.h),
+                        // Summary
                         Text(
                           "Summary",
                           style: GoogleFonts.inter(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: ColorsManager.white
-                          ),
+                              color: ColorsManager.white),
                         ),
                         SizedBox(height: 10.h),
                         Text(
                           movie.descriptionFull ?? "No description",
                           style: GoogleFonts.inter(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: ColorsManager.ofwhite
-                          ),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: ColorsManager.ofwhite),
                         ),
                         SizedBox(height: 15.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                          child: Divider(color: ColorsManager.grayish, thickness: 1.h),
-                        ),
+                        Divider(color: ColorsManager.grayish, thickness: 1.h),
+                        // Genres
                         Text(
                           "Genres",
                           style: GoogleFonts.inter(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: ColorsManager.white
-                          ),
+                              color: ColorsManager.white),
                         ),
                         SizedBox(height: 10.h),
                         if (movie.genres != null)
@@ -356,7 +367,7 @@ class MovieDetailsScreen extends StatelessWidget {
                             ),
                           ),
                         SizedBox(height: 16),
-                        // جوه الـ Column في الـ MovieDetailsScreen
+                        // Cast
                         if (movie.cast != null && movie.cast!.isNotEmpty) ...[
                           SizedBox(height: 20.h),
                           Text(
@@ -369,7 +380,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h),
                           SizedBox(
-                            height: 150, // ارتفاع الكارد لكل ممثل
+                            height: 150,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: movie.cast!.length,
@@ -414,8 +425,6 @@ class MovieDetailsScreen extends StatelessWidget {
                             ),
                           ),
                         ],
-
-
                       ],
                     ),
                   ),

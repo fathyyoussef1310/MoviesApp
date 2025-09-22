@@ -24,6 +24,10 @@ class Movie {
     genres = (json['genres'] != null) ? List<String>.from(json['genres']) : [];
   }
 
+  get id => null;
+
+  get mediumCoverImage => null;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['title'] = title;
