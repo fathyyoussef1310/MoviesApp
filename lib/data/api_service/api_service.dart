@@ -51,9 +51,7 @@ class ApiService {
 
       List<Movie> moviesList = [];
       if (data['movies'] != null) {
-        moviesList = (data['movies'] as List)
-            .map((e) => Movie.fromJson(e))
-            .toList();
+        moviesList = (data['movies'] as List).map((e) => Movie.fromJson(e)).toList();
       } else if (data['movie'] != null) {
         moviesList = [Movie.fromJson(data['movie'])];
       }
@@ -68,9 +66,7 @@ class ApiService {
       "page": page.toString(),
       "limit": limit.toString(),
     });
-
     http.Response moviesResponse = await http.get(uri);
-
     if (moviesResponse.statusCode == 200) {
       var json = jsonDecode(moviesResponse.body);
       MoviesResponce response = MoviesResponce.fromJson(json);

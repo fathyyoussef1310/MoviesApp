@@ -43,18 +43,23 @@ class BrowseController extends GetxController {
         limit: 20,
       );
       if (result != null && result.isNotEmpty) {
-        if (loadMore) {
+        if (loadMore)
+        {
           movies.addAll(result);
-        } else {
+        } else
+        {
           movies.assignAll(result);
         }
         for (var movie in result) {
-          if (movie.genres != null) {
+          if (movie.genres != null)
+          {
             genres.addAll(movie.genres!);
           }
         }
         page.value++;
-      } else {
+      }
+      else
+      {
         hasMore.value = false;
       }
     } catch (e) {

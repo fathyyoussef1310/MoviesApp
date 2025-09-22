@@ -18,7 +18,7 @@ class MovieSuggestionsRepository {
     return apiService.getMovieSuggestions(movieId);
   }
 }
-  class BrowseRepository {
+class BrowseRepository {
   final ApiService apiService;
   BrowseRepository(this.apiService);
   Future<List<Movies>?> fetchMovies({int page = 1, int limit = 20}) async

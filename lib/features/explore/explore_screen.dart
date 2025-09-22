@@ -8,14 +8,11 @@ import 'package:moviesapproute/controllers/BrowseControllers.dart';
 import 'package:moviesapproute/data/model/movie_list/Movies.dart';
 import '../home/widgets/movie_card.dart';
 import '../home/widgets/movie_details_screen.dart';
-
 class ExploreScreen extends StatelessWidget {
   ExploreScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
-    final BrowseController controller =
-    Get.put(BrowseController(BrowseRepository(ApiService())));
+    final BrowseController controller = Get.put(BrowseController(BrowseRepository(ApiService())));
     final baseCategories = ["All"];
     return Scaffold(
       backgroundColor: ColorsManager.darkBlack,
@@ -41,11 +38,10 @@ class ExploreScreen extends StatelessWidget {
                           controller.changeCategory(category);
                         },
                         child: Container(
-                          padding:
-                          EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
+                          padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
                           decoration: BoxDecoration(
                             color: isSelected ? ColorsManager.yellow : ColorsManager.darkBlack,
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(20.r),
                             border: Border.all(
                               color: ColorsManager.yellow,
                               width: 2,
@@ -82,7 +78,6 @@ class ExploreScreen extends StatelessWidget {
                     itemCount: displayedMovies.length,
                     itemBuilder: (context, index) {
                       final movie = displayedMovies[index];
-
                       return GestureDetector(
                         onTap: () {
                           Get.to(()=> MovieDetailsScreen(movieId: movie.id!,));
