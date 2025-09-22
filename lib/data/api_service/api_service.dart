@@ -22,7 +22,7 @@ class ApiService {
   }
 
   // Get movie details
-   Future<MovieDetailsResponse> getMovieDetails(int movieId) async {
+  Future<MovieDetailsResponse> getMovieDetails(int movieId) async {
     Uri uri = Uri.https(baseUrl, movieDetailsEndPoint, {
       "movie_id": movieId.toString(),
     });
@@ -51,7 +51,9 @@ class ApiService {
 
       List<Movie> moviesList = [];
       if (data['movies'] != null) {
-        moviesList = (data['movies'] as List).map((e) => Movie.fromJson(e)).toList();
+        moviesList = (data['movies'] as List)
+            .map((e) => Movie.fromJson(e))
+            .toList();
       } else if (data['movie'] != null) {
         moviesList = [Movie.fromJson(data['movie'])];
       }
@@ -61,6 +63,7 @@ class ApiService {
       throw Exception("Failed to fetch movie suggestions");
     }
   }
+
   Future<List<Movies>?> getMoviesByPage({int page = 1, int limit = 20}) async {
     Uri uri = Uri.https(baseUrl, moviesEndPoint, {
       "page": page.toString(),
@@ -73,6 +76,20 @@ class ApiService {
       return response.data?.movies ?? [];
     } else {
       throw Exception("Failed to fetch movies list");
+    }
+  }
+
+  static Future<List<Movies>?> searchMovies(String query) async {
+    Uri uri = Uri.https(baseUrl, moviesEndPoint, {"query_term": query});
+
+    http.Response response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      MoviesResponce moviesResponse = MoviesResponce.fromJson(json);
+      return moviesResponse.data?.movies ?? [];
+    } else {
+      throw Exception("Failed to search movies");
     }
   }
 }
