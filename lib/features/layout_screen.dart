@@ -16,7 +16,7 @@ class LayoutScreen extends StatefulWidget {
 class _LayoutScreenState extends State<LayoutScreen> {
   final List<Widget> _tabs = [
    HomeScreen(),
-    SearchScreen(),
+    SearchMovies(),
     ExploreScreen(),
     ProfileScreen(),
   ];

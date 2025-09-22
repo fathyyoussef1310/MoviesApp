@@ -1,31 +1,64 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moviesapproute/core/colors_manager/colorsManager.dart';
 import 'package:moviesapproute/core/image_manager/imagesManager.dart';
 import '../../core/widgets/custom_text_form_fied.dart';
+import '../../data/api_service/api_service.dart';
+import '../../data/model/movie_list/Movies.dart';
+import '../home/widgets/movie_card.dart';
 
-class Movie {
-  final String title;
-  final String image;
-  Movie({required this.title, required this.image});
-}
-
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+class SearchMovies extends StatefulWidget {
+  const SearchMovies({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<SearchMovies> createState() => _SearchMoviesState();
 }
 
+class _SearchMoviesState extends State<SearchMovies> {
+  final TextEditingController _controller = TextEditingController();
+  Timer? _debounce;
 
-class _SearchScreenState extends State<SearchScreen> {
-  String searchQuery = "";
-  List<Movie> allMovies = [
-    Movie(title: 'Movie 1', image: 'assets/Images/movie1.png'),
-    Movie(title: 'Movie 2', image: 'assets/Images/movie2.png'),
-    Movie(title: 'Movie 3', image: 'assets/Images/movie3.png'),
-    Movie(title: 'Movie 4', image: 'assets/Images/movie4.png'),
-  ];
-  List<Movie> filteredMovies = [];
+  List<Movies> _results = [];
+  bool _isLoading = false;
+  String? _error;
+
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () async {
+      if (query.isEmpty) {
+        setState(() {
+          _results = [];
+        });
+        return;
+      }
+
+      setState(() {
+        _isLoading = true;
+        _error = null;
+      });
+
+      try {
+        final movies = await ApiService.searchMovies(query);
+        setState(() {
+          _results = movies ?? [];
+          _isLoading = false;
+        });
+      } catch (e) {
+        setState(() {
+          _error = e.toString();
+          _isLoading = false;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,55 +72,44 @@ class _SearchScreenState extends State<SearchScreen> {
               CustomTextFormField(
                 hint: 'Search',
                 prefixIcon: Icons.search_outlined,
-                onChanged: (value) {
-                  setState(() {
-                    searchQuery = value;
-                    filteredMovies = allMovies
-                        .where((movie) =>
-                        movie.title.toLowerCase().contains(searchQuery.toLowerCase()))
-                        .toList();
-                  });
-                },
+                controller: _controller,
+                onChanged: _onSearchChanged,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               Expanded(
-                child: filteredMovies.isEmpty
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _error != null
                     ? Center(
-                  child: searchQuery.isEmpty
-                      ? Image.asset(
+                  child: Text(
+                    "Error: $_error",
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                )
+                    : _results.isEmpty
+                    ? Center(
+                  child: Image.asset(
                     ImagesManager.popcorn,
                     fit: BoxFit.contain,
-                  )
-                      : Text(
-                    "Not Found",
-                    style: TextStyle(
-                      color: ColorsManager.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
                   ),
                 )
                     : GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate:
+                  const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
                     childAspectRatio: 0.7,
                   ),
-                  itemCount: filteredMovies.length,
+                  itemCount: _results.length,
                   itemBuilder: (context, index) {
-                    final movie = filteredMovies[index];
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        movie.image,
-                        fit: BoxFit.cover,
-                      ),
+                    final movie = _results[index];
+                    return MovieCard(
+                      movie: movie,
                     );
                   },
                 ),
-              )
-            
+              ),
             ],
           ),
         ),
@@ -95,4 +117,3 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
-
